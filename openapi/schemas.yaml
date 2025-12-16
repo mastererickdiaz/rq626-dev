@@ -6,15 +6,23 @@ BasicInformation:
   description: "Módulo 1: Información Básica"
   properties:
     PartyIdentification:
+      description: "Identification of the customer (person or company)."
       $ref: "#/Identification"
     NaturalPerson:
+      description: "Details if the customer is a natural person."
       $ref: "#/NaturalPerson"
+    LegalEntityName:
+      description: "Name details if the customer is a legal entity."
+      $ref: "#/LegalEntityName"
     TaxpayerInformation:
       $ref: "#/TaxpayerInformation"
     EconomicActivity:
       $ref: "#/EconomicActivity"
     RegistrationInformation:
       $ref: "#/RegistrationInformation"
+    RelatedPartyIdentification:
+      description: "Identification of a related party, if any."
+      $ref: "#/Identification"
 
 # =======================================================================
 # == GeneralInformation
@@ -292,17 +300,17 @@ GuarantorsAndCoDebtors:
       description: "List of parties the customer is a guarantor for."
       type: array
       items:
-        $ref: '#/GuarantorRelationship'
+        $ref: "#/GuarantorRelationship"
     IsGuaranteedBy:
       description: "List of parties that guarantee the customer."
       type: array
       items:
-        $ref: '#/GuarantorRelationship'
+        $ref: "#/GuarantorRelationship"
     CoDebts:
       description: "List of co-debts for the customer."
       type: array
       items:
-        $ref: '#/CoDebtor'
+        $ref: "#/CoDebtor"
 
 # =======================================================================
 # == GuarantorRelationship
