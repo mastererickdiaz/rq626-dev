@@ -1,0 +1,2352 @@
+# =======================================================================
+# == BasicInformation
+# =======================================================================
+BasicInformation:
+  type: object
+  description: "Módulo 1: Información Básica"
+  properties:
+    PartyIdentification:
+      $ref: "#/Identification"
+    NaturalPerson:
+      $ref: "#/NaturalPerson"
+    TaxpayerInformation:
+      $ref: "#/TaxpayerInformation"
+    EconomicActivity:
+      $ref: "#/EconomicActivity"
+    RegistrationInformation:
+      $ref: "#/RegistrationInformation"
+
+# =======================================================================
+# == GeneralInformation
+# =======================================================================
+GeneralInformation:
+  type: object
+  description: "Módulo 2: Información General"
+  properties:
+    Address:
+      $ref: "#/CustomerAddress"
+    LegalRepresentatives:
+      type: array
+      items:
+        $ref: "#/LegalRepresentative"
+    IsLegalRepresentativeOf:
+      type: array
+      items:
+        $ref: "#/LegalRepresentationRelationship"
+
+# =======================================================================
+# == QuickConsultation
+# =======================================================================
+QuickConsultation:
+  type: object
+  description: "Módulo 3: Consulta Rápida"
+  properties:
+    Summary:
+      $ref: "#/QuickConsultationSummary"
+    CreditIndicators:
+      type: array
+      items:
+        $ref: "#/CreditIndicator"
+    SbsMicrofinanceDebts:
+      type: array
+      items:
+        $ref: "#/SBSMicrofinanceDebt"
+    OverdueDocuments:
+      type: array
+      items:
+        $ref: "#/OverdueDocument"
+    CreditLineUtilizations:
+      type: array
+      items:
+        $ref: "#/CreditLineUtilization"
+    ProtestedDocuments:
+      type: array
+      items:
+        $ref: "#/ProtestedDocument"
+    OtherInformativeDebt:
+      type: array
+      items:
+        $ref: "#/OtherInformativeDebt"
+
+# =======================================================================
+# == SBSMicrofinanceDebt
+# =======================================================================
+SBSMicrofinanceDebt:
+  type: object
+  properties:
+    Year:
+      type: integer
+      example: 2022
+    Month:
+      type: integer
+      example: 2
+    Rating:
+      type: string
+      example: "NOR 82% CPP 18%..."
+    EntitiesNumber:
+      type: string
+      example: "1"
+    EntitiesItem:
+      type: array
+      items:
+        $ref: "#/EntitiesItem"
+
+# =======================================================================
+# == EntitiesItem
+# =======================================================================
+EntitiesItem:
+  type: object
+  EntityName:
+    type: string
+    example: "INTERBANK"
+  RatingCode:
+    type: string
+    example: "NOR"
+  DebtBalance:
+    type: number
+    format: float
+    example: 775135.29
+  DaysPastDue:
+    type: integer
+    example: 0
+  ProcessingDate:
+    type: string
+    format: date
+    example: "2022-02-12"
+  ReportDate:
+    type: string
+    format: date
+    example: "2022-12-12"
+
+# =======================================================================
+# == OverdueDocument
+# =======================================================================
+OverdueDocument:
+  type: object
+  properties:
+    Year:
+      type: integer
+      example: 2023
+    Month:
+      type: integer
+      example: 2
+    SourceId:
+      type: integer
+      example: 5
+    SourceName:
+      type: string
+      example: "Documentos Impagos"
+    TotalPastDue:
+      type: number
+      format: float
+      example: 221.87
+    MaxDaysPastDue:
+      type: integer
+      example: 1473
+    EntityName:
+      type: string
+      example: "AMERICA MOVIL PERU S.A.C."
+    DebtAmount:
+      type: number
+      format: float
+      example: 166.87
+    DaysPastDue:
+      type: integer
+      example: 695
+    DocumentsNumber:
+      type: integer
+      example: 4
+    EntityType:
+      type: string
+      example: "CTC"
+    ControversyFlag:
+      type: string
+      example: "N"
+
+# =======================================================================
+# == CreditLineUtilization
+# =======================================================================
+CreditLineUtilization:
+  type: object
+  properties:
+    Institution:
+      type: string
+      example: "BBVA"
+    ApprovedLine:
+      type: number
+      format: float
+      example: 1000
+    UnusedLine:
+      type: number
+      format: float
+      example: 1000
+    UsedLine:
+      type: number
+      format: float
+      example: 0
+    CreditType:
+      type: string
+      example: "TCO"
+
+# =======================================================================
+# == ProtestedDocument
+# =======================================================================
+ProtestedDocument:
+  type: object
+  properties:
+    GroupingType:
+      type: string
+      example: "Aceptante"
+    Status:
+      type: string
+      example: "Regularizados"
+    DocumentsNumber:
+      type: string
+      example: "48"
+    TotalAmount:
+      type: number
+      format: float
+      example: 4906751.06
+    MaxDaysPastDue:
+      type: string
+      example: "-"
+
+# =======================================================================
+# == OtherInformativeDebt
+# =======================================================================
+OtherInformativeDebt:
+  type: object
+  description: "Otras deudas informativas"
+  properties:
+    Year:
+      type: integer
+      description: "Año último fecha Proceso"
+      example: 2023
+    Month:
+      type: integer
+      description: "Mes último fecha Proceso"
+      example: 2
+    Sources:
+      type: array
+      items:
+        $ref: "#/InformativeDebtSource"
+
+# =======================================================================
+# == InformativeDebtSource
+# =======================================================================
+InformativeDebtSource:
+  type: object
+  properties:
+    SourceId:
+      type: integer
+      description: ID de la fuente
+      example: 6
+    SourceName:
+      type: string
+      description: Nombre de la fuente
+      example: "AFP - Deuda Presunta"
+    TotalOverdue:
+      type: number
+      format: float
+      description: Deuda vencida total
+      example: 221.87
+    MaxDaysOverdue:
+      type: integer
+      description: Máximo número de días vencidos
+    Entities:
+      type: array
+      items:
+        $ref: "#/InformativeDebtEntity"
+
+# =======================================================================
+# == InformativeDebtEntity
+# =======================================================================
+InformativeDebtEntity:
+  type: object
+  properties:
+    EntityName:
+      type: string
+      description: Razón social de la entidad
+      example: "AFP INTEGRA S.A"
+    DebtAmount:
+      type: number
+      format: float
+      description: Monto de la deuda
+      example: 221.87
+    DaysOverdue:
+      type: integer
+      description: Días vencidos
+    DocumentsNumber:
+      type: integer
+      description: Número de documentos vencidos
+      example: 55
+
+# =======================================================================
+# == GuarantorsAndCoDebtors
+# =======================================================================
+GuarantorsAndCoDebtors:
+  type: object
+  description: "Módulo 4: Avales y Codeudores"
+  properties:
+    GuaranteedParties:
+      type: array
+      items:
+        $ref: "#/GuaranteedParty"
+    CoDebtors:
+      type: array
+      items:
+        $ref: "#/CoDebtor"
+
+# =======================================================================
+# == GuaranteedParty
+# =======================================================================
+GuaranteedParty:
+  type: object
+  properties:
+    GuaranteedIdentification:
+      $ref: "#/Identification"
+    GuaranteeName:
+      type: string
+      example: "LOPEZ PEREZ JUAN LUIS"
+    RiskIndicators:
+      $ref: "#/RiskIndicators"
+    Creditor:
+      $ref: "#/GuaranteeCreditor"
+
+# =======================================================================
+# == CoDebtor
+# =======================================================================
+CoDebtor:
+  type: object
+  properties:
+    Party:
+      $ref: "#/Party"
+    CreditId:
+      type: string
+      example: "A34351566713"
+    ProcessingDate:
+      type: string
+      format: date
+      example: "2018-12-31"
+    CoDebtType:
+      type: integer
+      example: 1
+    DebtAmount:
+      type: number
+      format: float
+      example: 473732.24
+
+# =======================================================================
+# == ForeignTrade
+# =======================================================================
+ForeignTrade:
+  type: object
+  description: "Módulo 5: Comercio Exterior"
+  properties:
+    YearlySummary:
+      type: array
+      items:
+        $ref: "#/TradeYearlySummary"
+    MonthlySummary:
+      type: array
+      items:
+        $ref: "#/TradeMonthlySummary"
+
+# =======================================================================
+# == TradeYearlySummary
+# =======================================================================
+TradeYearlySummary:
+  type: object
+  properties:
+    Year:
+      type: integer
+      example: 2021
+    Activity:
+      type: string
+      example: "IMPORTACIÓN"
+    OperationsNumber:
+      type: integer
+      example: 8
+    AmountUSD:
+      type: number
+      format: float
+      example: 572504.65
+    CountriesNumber:
+      type: integer
+      example: 4
+    MainCountries:
+      type: string
+      example: "ARGENTINA, CHINA, DENMARK"
+
+# =======================================================================
+# == TradeMonthlySummary
+# =======================================================================
+TradeMonthlySummary:
+  type: object
+  properties:
+    Activity:
+      type: string
+      example: "IMPORTACIÓN"
+    Year:
+      type: integer
+      example: 2021
+    Month:
+      type: string
+      example: "AGOSTO"
+    OperationsNumber:
+      type: integer
+      example: 2
+    AmountUSD:
+      type: number
+      format: float
+      example: 713211.15
+    CountriesNumber:
+      type: integer
+      example: 1
+    MainCountries:
+      type: string
+      example: "CHINA"
+
+# =======================================================================
+# == AccountingInfo
+# =======================================================================
+AccountingInfo:
+  type: object
+  properties:
+    AccountingAccount:
+      type: string
+      example: "14"
+    AccountingAccountDescription:
+      type: string
+      example: "CREDITOS DIRECTOS"
+    TotalOperationAmount:
+      type: number
+      format: float
+      example: 230241461.52
+    MaxDaysPastDue:
+      type: integer
+      example: 0
+
+# =======================================================================
+# == SbsDebtByOperation
+# =======================================================================
+SbsDebtByOperation:
+  type: object
+  description: "Módulo 6: Deuda SBS por Operación"
+  properties:
+    CreditorName:
+      type: string
+      example: "BCP"
+    ProcessingDate:
+      type: string
+      format: date
+      example: "2022-04-25"
+    PublicationDate:
+      type: string
+      format: date
+      example: "2022-03-31"
+    Rating:
+      type: string
+      example: "NOR"
+    AccountingInfo:
+      $ref: "#/AccountingInfo"
+
+# =======================================================================
+# == InquiryFootprint
+# =======================================================================
+InquiryFootprint:
+  type: object
+  description: "Módulo 7: Huella de Consulta"
+  properties:
+    InquirySummary:
+      type: array
+      items:
+        $ref: "#/InquirySummary"
+    InquiryDetails:
+      type: array
+      items:
+        $ref: "#/InquiryDetail"
+
+# =======================================================================
+# == InquirySummary
+# =======================================================================
+InquirySummary:
+  type: object
+  properties:
+    EconomicActivity:
+      type: string
+      example: "ACTIVIDADES DE IMPRESION"
+    MonthYear:
+      type: string
+      example: "03-2023"
+    ConsultationCount:
+      type: integer
+      example: 4
+
+# =======================================================================
+# == InquiryDetail
+# =======================================================================
+InquiryDetail:
+  type: object
+  properties:
+    EconomicActivity:
+      type: string
+      example: "ACTIVIDADES DE IMPRESION"
+    EntityName:
+      type: string
+      example: "FINANCIERA PROEMPRESA S.A."
+    MonthYear:
+      type: string
+      example: "02-2023"
+    LastConsultationDate:
+      type: string
+      format: date
+      example: "2023-02-18"
+    ConsultationCount:
+      type: integer
+      example: 3
+
+# =======================================================================
+# == SabioAssessment
+# =======================================================================
+SabioAssessment:
+  type: object
+  description: "Módulo 8: Evaluación Sabio"
+  properties:
+    Result:
+      type: string
+      example: "REVISAR"
+    Reasons:
+      type: array
+      items:
+        type: string
+      example: ["Presenta Calificación Cpp..."]
+    Score:
+      type: integer
+      example: 652
+    ScoreLevel:
+      type: string
+      example: "Puntaje Medio"
+    ScoreDescription:
+      type: string
+      example: "Estadísticamente, en este nivel..."
+    PaymentCapacity:
+      type: string
+      example: "S/ 321 - S/ 471"
+    EstimatedInstallment:
+      type: string
+      example: "S/. 2,322.00"
+
+# =======================================================================
+# == OtherProducts
+# =======================================================================
+OtherProducts:
+  type: object
+  description: "Módulo 9: Otros Productos"
+  properties:
+    Products:
+      type: array
+      items:
+        type: object
+        properties:
+          ProductCode:
+            type: string
+            example: "1"
+          ProductName:
+            type: string
+            example: "Score Predictivo (AML)"
+          Value:
+            type: string
+            example: "730"
+          Description1:
+            type: string
+            example: "Puntaje alto"
+          Description2:
+            type: string
+            example: "Bancarizado"
+
+# =======================================================================
+# == RiskIndicators
+# =======================================================================
+RiskIndicators:
+  type: object
+  properties:
+    CurrentSemaphore:
+      type: string
+      example: "2"
+    PreviousSemaphore:
+      type: string
+      example: "2"
+    SemaphoreLast12Months:
+      type: string
+      example: "4"
+
+# =======================================================================
+# == GuaranteeCreditor
+# =======================================================================
+GuaranteeCreditor:
+  type: object
+  properties:
+    CreditorIdentification:
+      $ref: "#/Identification"
+    CreditorBusinessName:
+      type: string
+      example: "CENTRO DE PROMOCION..."
+    Rating:
+      type: string
+      example: "PER"
+    DebtBalance:
+      type: number
+      format: float
+      example: 6701.34
+    EntityType:
+      type: string
+      example: "MICROFINANZAS"
+    ReportDate:
+      type: string
+      format: date
+      example: "2022-07-31"
+
+# =======================================================================
+# == EconomicActivity
+# =======================================================================
+EconomicActivity:
+  type: object
+  description: "Actividad económica de la empresa"
+  properties:
+    ActivityStartDate:
+      type: string
+      format: date
+      description: "Inicio actividades"
+      example: "2001-08-01"
+    EconomicActivityCode:
+      type: string
+      description: "Código actividad económica"
+      example: "1040"
+    EconomicActivity:
+      type: string
+      description: "Actividad económica"
+      example: "ELABORACIÓN DE ACEITES..."
+
+# =======================================================================
+# == RegistrationInformation
+# =======================================================================
+RegistrationInformation:
+  type: object
+  description: "Información de registro en entidades públicas"
+  properties:
+    PublicRegistryRegistrationDate:
+      type: string
+      format: date
+      description: "Fecha inscripción RRPP"
+      example: "2001-01-10"
+    RegistryEntryNumber:
+      type: string
+      description: "Número partida registral"
+      example: "101234370000"
+    Folio:
+      type: string
+      description: "Folio"
+      example: "351"
+    Seat:
+      type: string
+      description: "Asiento"
+      example: "1"
+
+# =======================================================================
+# == TaxpayerInformation
+# =======================================================================
+TaxpayerInformation:
+  type: object
+  description: "Información del contribuyente"
+  properties:
+    TaxpayerType:
+      type: string
+      description: "Tipo contribuyente"
+      example: "SOCIEDAD ANONIMA CERRADA"
+    WithholdingAgent:
+      type: string
+      description: "Agente de retención"
+      example: "S"
+    TaxpayerStatusCode:
+      type: string
+      description: "Código estado contribuyente"
+      example: "12"
+    TaxpayerStatus:
+      type: string
+      description: "Estado contribuyente"
+      example: "BAJA DEFINITIVA"
+    DomicileStatusCode:
+      type: string
+      description: "Código estado domicilio"
+      example: "1"
+    DomicileStatus:
+      type: string
+      description: "Estado domicilio"
+      example: "HABIDO"
+
+# =======================================================================
+# == CustomerAddress
+# =======================================================================
+CustomerAddress:
+  type: object
+  properties:
+    AddressLine:
+      type: string
+      description: Dirección
+      example: "AVENIDA CANAVAL Y MOREYRA..."
+    Source:
+      type: string
+      description: Fuente de la dirección
+      example: "SUNAT - DOMICILIO FISCAL"
+
+# =======================================================================
+# == LegalRepresentationRelationship
+# =======================================================================
+LegalRepresentationRelationship:
+  type: object
+  properties:
+    DocumentIdentification:
+      $ref: "#/Identification"
+    BusinessName:
+      type: string
+      description: Razón social
+      example: "EMPRESA SOCIAL"
+    PositionStartDate:
+      type: string
+      format: date
+      description: Fecha inicio cargo
+      example: "2018-03-28"
+    Position:
+      type: string
+      description: Cargo
+      example: "APODERADO"
+    Status:
+      type: string
+      description: Estado
+      example: "ACTIVO"
+    CurrentSemaphore:
+      type: string
+      description: Semáforo actual
+      example: "12"
+    PreviousSemaphore:
+      type: string
+      description: Semáforo Previo
+      example: "1"
+    BestWorstSemaphoreLast12Months:
+      type: string
+      description: Semáforo mejor/peor últimos 12 meses
+      example: "2"
+
+# =======================================================================
+# == QuickConsultationSummary
+# =======================================================================
+QuickConsultationSummary:
+  type: object
+  properties:
+    ProcessingDate:
+      type: string
+      format: date
+      example: "2022-10-04"
+    Semaphore:
+      type: string
+      example: "VVVVVVVVVVAAAAAAAAAAAAAA"
+    CurrentSemaphore:
+      type: string
+      example: "2"
+    PreviousSemaphore:
+      type: string
+      example: "2"
+    WorstBestSemaphore:
+      type: string
+      example: "2"
+    Score:
+      type: string
+      example: "0.1767"
+    RegulatedFinancialEntitiesNumber:
+      type: string
+      example: "1"
+    UnregulatedFinancialEntitiesNumber:
+      type: string
+      example: "1"
+    TotalDebt:
+      type: string
+      example: "109065555.63"
+    AverageRating:
+      type: string
+      example: "NOR 82% CPP 18%..."
+    TaxDebt:
+      type: string
+      example: "0.00"
+    LaborDebt:
+      type: string
+      example: "0.00"
+    UnpaidDebt:
+      type: string
+      example: "0.00"
+    ProtestedDocumentsDebt:
+      type: string
+      example: "35471.09"
+    SbsMicrofinanceDebt:
+      type: string
+      example: "9030084.54"
+
+# =======================================================================
+# == CreditIndicator
+# =======================================================================
+CreditIndicator:
+  type: object
+  properties:
+    Indicator:
+      type: string
+      example: "Línea de Crédito"
+
+# =======================================================================
+# == CreditStageEnum
+# =======================================================================
+CreditStageEnum:
+  type: string
+  description: Etapa del ciclo de vida del crédito (Si_FinEstCredito).
+  enum:
+    - INGRESADO PARA SOLICITUD
+    - SOLICITADO PARA EVALUACIÓN
+    - APROBADO
+    - ANULADO
+    - DENEGADO
+    - ACTIVO
+    - CANCELADO
+    - EXTORNADO
+    - RECHAZADO POR ANTIGUEDAD
+    - DENEGADO POR ANTIGUEDAD
+    - PRE DESEMBOLSADO
+    - OBSERVADO
+    - DENEGADO POR VENCIMIENTO DE PRODUCTO
+    - ENVIADO A EVALUACIÓN
+    - ANULADO POR REGLAS NO CONTEMPLADAS
+    - ENVIADO A APROBACION
+    - DENEGADO POR OPINION DE RIESGOS
+    - DENEGADO VISTO BUENO DESFAVORABLE
+    - ENVIADO A MODELO SCORING
+    - DEVUELTO
+  example: "SOLICITADO PARA EVALUACIÓN"
+
+# =======================================================================
+# == ApprovalStateEnum
+# =======================================================================
+ApprovalStateEnum:
+  type: string
+  description: Estado de una aprobación.
+  enum:
+    - APROBADO
+    - RECHAZADO
+    - PENDIENTE
+  example: "APROBADO"
+
+# =======================================================================
+# == ApprovalChannelEnum
+# =======================================================================
+ApprovalChannelEnum:
+  type: string
+  description: Canal a través del cual se gestiona una aprobación.
+  enum:
+    - EBGS
+    - ATCC
+    - CERN
+    - CNERN
+    - CRERN
+    - CFERN
+    - CNERRP
+  example: "ATCC"
+
+# =======================================================================
+# == PolicyTypeEnum
+# =======================================================================
+PolicyTypeEnum:
+  type: string
+  description: Tipo de política de negocio.
+  enum:
+    - GENERICA
+    - ESTRATEGICA
+    - ESPECIFICA
+  example: "GENERICA"
+
+# =======================================================================
+# == PolicyZoneEnum
+# =======================================================================
+PolicyZoneEnum:
+  type: string
+  description: Zona de flexibilidad de la política.
+  enum:
+    - REGULAR
+    - FLEXIBLE
+    - ESPECIFICA
+  example: "REGULAR"
+
+# =======================================================================
+# == ChallengerConfigEnum
+# =======================================================================
+ChallengerConfigEnum:
+  type: string
+  description: Configuración para la ejecución de pruebas Champion-Challenger.
+  enum:
+    - SOLO MAXIMO
+    - HABILITADO
+    - DESHABILITADO
+  example: "HABILITADO"
+
+# =======================================================================
+# == PolicyMetricItem
+# =======================================================================
+PolicyMetricItem:
+  type: object
+  description: Métrica individual de una ejecución de política.
+  required:
+    - ChannelId
+    - CreditStageId
+    - CreditProcessId
+    - PolicyId
+    - Success
+    - ExceptionApproved
+    - PolicyTypeId
+    - Date
+  properties:
+    ChannelId:
+      type: integer
+      description: Identificador del canal (Si_FinCanal).
+      example: 1
+    CreditStageId:
+      type: integer
+      description: Etapa del crédito.
+      example: 1
+    CreditProcessId:
+      type: string
+      description: Identificador del proceso crediticio.
+      example: "SOL-2025-001-1"
+    PolicyId:
+      type: string
+      description: Identificador de la política.
+      example: "POL-001"
+    Success:
+      type: boolean
+      description: Indica si la regla fue exitosa.
+      example: false
+    ExceptionApproved:
+      type: boolean
+      description: Indica si la regla fue aprobada mediante una excepción.
+      example: true
+    PolicyTypeId:
+      type: integer
+      description: Identificador del tipo de regla.
+      example: 1
+    Date:
+      type: string
+      format: date-time
+      description: Fecha y hora de la ejecución.
+      example: "2025-01-15T10:30:00Z"
+
+# =======================================================================
+# == Party
+# =======================================================================
+Party:
+  type: object
+  description: |
+    Entidad Party que puede ser persona natural o jurídica.
+    Usar PartyType como discriminador para determinar qué campos enviar.
+  required:
+    - PartyReference
+    - Contact
+  properties:
+    PartyReference:
+      $ref: "#/PartyReference"
+    Contact:
+      $ref: "#/Contact"
+    NaturalPerson:
+      $ref: "#/NaturalPerson"
+    LegalEntity:
+      $ref: "#/LegalEntity"
+  discriminator:
+    propertyName: PartyReference.PartyType
+    mapping:
+      INDIVIDUAL: "#/NaturalPerson"
+      ORGANIZATION: "#/LegalEntity"
+
+# =======================================================================
+# == PartyReference
+# =======================================================================
+PartyReference:
+  type: object
+  description: Referencia a la entidad Party.
+  required:
+    - PartyId
+    - PartyTypeCode
+  properties:
+    PartyId:
+      type: string
+      description: Identificador único del cliente
+      example: "CLI-123456"
+    PartyTypeCode:
+      type: integer
+      description: Identificador numérico del tipo de cliente
+      example: 1
+    PartyType:
+      type: string
+      enum: ["INDIVIDUAL", "ORGANIZATION"]
+      description: Tipo de party
+      example: "INDIVIDUAL"
+    PartyStatusCode:
+      type: integer
+      description: Identificador del estado del cliente
+      example: 1
+    PartyStatus:
+      type: string
+      enum: ["ACTIVE", "INACTIVE", "SUSPENDED"]
+      description: Estado del cliente
+      example: "ACTIVE"
+    RegistrationDate:
+      type: string
+      format: date-time
+      description: Fecha y hora de registro del cliente
+      example: "2023-01-15T10:30:00Z"
+    InactivationDate:
+      type: string
+      format: date-time
+      description: Fecha y hora de inactivación del cliente
+      example: "2024-05-01T18:00:00Z"
+
+# =======================================================================
+# == NaturalPerson
+# =======================================================================
+NaturalPerson:
+  type: object
+  description: Detalles de persona natural.
+  required:
+    - PersonIdentification
+    - PersonName
+  properties:
+    PersonIdentification:
+      $ref: "#/PersonIdentification"
+    EconomicInformation:
+      $ref: "#/EconomicInformation"
+    BusinessInformation:
+      $ref: "#/BusinessInformation"
+
+# =======================================================================
+# == LegalEntity
+# =======================================================================
+LegalEntity:
+  type: object
+  description: Detalles de persona jurídica.
+  required:
+    - LegalEntityIdentification
+    - LegalEntityName
+  properties:
+    LegalEntityIdentification:
+      $ref: "#/BusinessIdentification"
+    LegalEntityName:
+      $ref: "#/LegalEntityName"
+    LegalEntityInformation:
+      $ref: "#/LegalEntityInformation"
+    LegalRepresentatives:
+      type: array
+      description: Lista de representantes legales
+      items:
+        $ref: "#/LegalRepresentative"
+    BusinessInformation:
+      $ref: "#/BusinessInformation"
+    Shareholders:
+      type: array
+      description: Lista de accionistas o socios
+      items:
+        $ref: "#/Shareholder"
+
+# =======================================================================
+# == LegalEntityName
+# =======================================================================
+LegalEntityName:
+  type: object
+  description: Nombre de la empresa jurídica
+  required:
+    - BusinessName
+  properties:
+    BusinessName:
+      type: string
+      description: Razón social completa
+      example: "CORPORACIÓN LOS ANDES S.A.C."
+    TradeName:
+      type: string
+      description: Nombre comercial
+      example: "Los Andes Bank"
+
+# =======================================================================
+# == LegalEntityInformation
+# =======================================================================
+LegalEntityInformation:
+  type: object
+  description: Información adicional de la empresa
+  properties:
+    CompanyType:
+      type: string
+      enum: ["SAC", "SA", "SRL", "EIRL", "SAA", "OTRO"]
+      description: Tipo de empresa
+      example: "SAC"
+    IncorporationDate:
+      type: string
+      format: date
+      description: Fecha de constitución
+      example: "2015-03-20"
+    EconomicActivity:
+      type: string
+      description: Actividad económica principal
+      example: "Servicios Financieros"
+
+# =======================================================================
+# == LegalRepresentative
+# =======================================================================
+LegalRepresentative:
+  type: object
+  description: Representante legal de la empresa
+  required:
+    - RepresentativeId
+    - PersonIdentification
+    - PersonName
+    - RepresentationType
+  properties:
+    RepresentativeId:
+      type: string
+      description: Identificador único del representante
+      example: "REP-001"
+    PersonIdentification:
+      $ref: "#/PersonIdentification"
+    RepresentationType:
+      type: string
+      enum: ["GENERAL_MANAGER", "LEGAL_REPRESENTATIVE", "POWER_OF_ATTORNEY"]
+      description: Tipo de representación
+      example: "GENERAL_MANAGER"
+    Contact:
+      $ref: "#/Contact"
+
+# =======================================================================
+# == Shareholder
+# =======================================================================
+Shareholder:
+  type: object
+  description: Accionista o socio de la empresa
+  properties:
+    ShareholderId:
+      type: string
+      description: Identificador único del accionista
+      example: "SH-001"
+    PersonIdentification:
+      $ref: "#/PersonIdentification"
+    PersonName:
+      $ref: "#/PersonName"
+    OwnershipPercentage:
+      type: number
+      format: float
+      minimum: 0
+      maximum: 100
+      description: Porcentaje de participación
+      example: 60.0
+    Contact:
+      $ref: "#/Contact"
+
+# =======================================================================
+# == Contact
+# =======================================================================
+Contact:
+  type: object
+  description: Información de contacto
+  properties:
+    EmailAddress:
+      type: string
+      format: email
+      description: Dirección de correo electrónico
+      example: "cliente@ejemplo.com"
+    PhoneNumber:
+      type: string
+      description: Número de teléfono
+      example: "+51987654321"
+    Address:
+      type: string
+      description: Dirección física
+      example: "Av. Principal 123, Lima"
+
+# =======================================================================
+# == Identification
+# =======================================================================
+Identification:
+  type: object
+  description: "Identificación unificada para personas y empresas"
+  required:
+    - Type
+    - Number
+  properties:
+    Type:
+      type: string
+      description: |
+        Tipo de documento.
+        Valores comunes: DNI, RUC, CE (Carné Extranjería), 
+        PASAPORTE, LICENCIA, OTRO.
+      example: "RUC"
+    Number:
+      type: string
+      description: "Número del documento"
+      example: "20123456789"
+    IssuingAuthority:
+      type: string
+      description: "Entidad emisora del documento"
+      example: "SUNAT"
+    IssueDate:
+      type: string
+      format: date
+      description: "Fecha de emisión del documento"
+      example: "2015-05-10"
+    ExpiryDate:
+      type: string
+      format: date
+      description: "Fecha de vencimiento del documento"
+      example: "2025-05-10"
+
+# =======================================================================
+# == PersonIdentification
+# =======================================================================
+PersonIdentification:
+  type: object
+  description: Identificación de persona
+  required:
+    - Identification
+  properties:
+    Identification:
+      $ref: "#/Identification"
+    PersonName:
+      $ref: "#/PersonName"
+    DemographicInformation:
+      $ref: "#/DemographicInformation"
+    Contact:
+      $ref: "#/Contact"
+
+# =======================================================================
+# == PersonName
+# =======================================================================
+PersonName:
+  type: object
+  description: Nombre de persona
+  properties:
+    GivenName:
+      type: string
+      description: Nombres
+      example: "Jhon Dereck"
+    LastName:
+      type: string
+      description: Apellido paterno
+      example: "Prada"
+    MothersLastName:
+      type: string
+      description: Apellido materno
+      example: "Smith"
+    FullName:
+      type: string
+      description: Nombre completo
+      example: "Pérez García Juan Carlos"
+
+# =======================================================================
+# == DemographicInformation
+# =======================================================================
+DemographicInformation:
+  type: object
+  description: Información demográfica
+  properties:
+    BirthDate:
+      type: string
+      format: date
+      description: Fecha de nacimiento
+      example: "1990-05-15"
+    GenderCode:
+      type: integer
+      description: Identificador del género
+      example: 1
+    Gender:
+      type: string
+      enum: ["MALE", "FEMALE", "OTHER"]
+      description: Género
+      example: "MALE"
+    NationalityCode:
+      type: integer
+      description: Identificador numérico de la nacionalidad
+      example: 1
+    Nationality:
+      type: string
+      description: Nacionalidad
+      example: "PERUANA"
+    BirthPlace:
+      type: string
+      description: Lugar de nacimiento
+      example: "Lima, Perú"
+
+# =======================================================================
+# == EconomicInformation
+# =======================================================================
+EconomicInformation:
+  type: object
+  description: Información económica
+  properties:
+    ProfessionCode:
+      type: integer
+      description: Código de la profesión
+      example: 123
+    Profession:
+      type: string
+      description: Profesión
+      example: "Ingeniero"
+    MonthlyIncome:
+      $ref: "#/Amount"
+      description: Ingreso mensual
+    EmploymentStatus:
+      type: string
+      enum: ["EMPLOYED", "SELF_EMPLOYED", "UNEMPLOYED", "RETIRED", "STUDENT"]
+      description: Situación laboral
+      example: "EMPLOYED"
+
+# =======================================================================
+# == BusinessIdentification
+# =======================================================================
+BusinessIdentification:
+  type: object
+  description: "Identificación especializada para empresas"
+  required:
+    - Identification
+    - LegalEntityName
+  properties:
+    Identification:
+      $ref: "#/Identification"
+    LegalEntityName:
+      $ref: "#/LegalEntityName"
+    LegalEntityInformation:
+      $ref: "#/LegalEntityInformation"
+    Contact:
+      $ref: "#/Contact"
+
+# =======================================================================
+# == BusinessInformation
+# =======================================================================
+BusinessInformation:
+  type: object
+  description: Información de negocio para persona natural con actividad empresarial
+  properties:
+    HasBusinessActivity:
+      type: boolean
+      description: Indica si la persona natural realiza actividad empresarial
+      example: true
+    Identification:
+      $ref: "#/Identification"
+    LegalEntityName:
+      $ref: "#/LegalEntityName"
+    BusinessActivity:
+      type: string
+      description: Actividad económica del negocio
+      example: "Servicios Financieros"
+    BusinessAddress:
+      type: string
+      description: Dirección del establecimiento comercial
+      example: "Av. Comercial 456, Lima"
+    BusinessStartDate:
+      type: string
+      format: date
+      description: Fecha de inicio de actividades
+      example: "2020-01-15"
+
+# =======================================================================
+# == Session
+# =======================================================================
+Session:
+  type: object
+  description: Información de la sesión de autenticación
+  required:
+    - SessionId
+    - SessionDateTime
+    - SessionStatus
+  properties:
+    SessionId:
+      type: string
+      description: Identificador único de la sesión
+      example: "SES-20250130-123456"
+    SessionDateTime:
+      type: string
+      format: date-time
+      description: Fecha y hora de la sesión
+      example: "2025-01-30T10:30:00Z"
+    SessionStatus:
+      type: string
+      enum: ["SUCCESSFUL", "FAILED", "PENDING"]
+      description: Estado de la sesión
+      example: "SUCCESSFUL"
+    AuthenticationMethod:
+      type: string
+      enum: ["PASSWORD", "BIOMETRIC", "OTP", "MULTI_FACTOR"]
+      description: Método de autenticación utilizado
+      example: "PASSWORD"
+    AttemptCount:
+      type: integer
+      description: Número de intentos de autenticación
+      example: 1
+      minimum: 0
+    ErrorMessage:
+      type: string
+      description: Mensaje de error si la sesión falló
+      example: "Credenciales inválidas"
+
+# =======================================================================
+# == Channel
+# =======================================================================
+Channel:
+  type: object
+  description: Información del canal de acceso o registro
+  required:
+    - ChannelCode
+  properties:
+    ChannelCode:
+      type: integer
+      description: Identificador numérico del canal
+      example: 10
+    ChannelType:
+      type: string
+      enum: ["MOBILE_APP", "INTERNET_BANKING", "BRANCH", "ATM", "CALL_CENTER"]
+      description: Tipo de canal estandarizado (Descripción textual)
+      example: "MOBILE_APP"
+    ChannelIdentifier:
+      type: string
+      description: Identificador específico del canal (ej. Nombre de App, Razón Social Sucursal)
+      example: "LOS_ANDES_MOBILE"
+    ApplicationVersion:
+      type: string
+      description: Versión de la aplicación (si aplica)
+      example: "3.2.1"
+
+# =======================================================================
+# == Device
+# =======================================================================
+Device:
+  type: object
+  description: Información del dispositivo utilizado
+  required:
+    - DeviceId
+  properties:
+    DeviceId:
+      type: string
+      description: Identificador único del dispositivo
+      example: "DEVICE-UUID-12345"
+    DeviceType:
+      type: string
+      enum: ["MOBILE", "TABLET", "DESKTOP", "ATM"]
+      description: Tipo de dispositivo
+      example: "MOBILE"
+    HardwareIdentifier:
+      type: string
+      description: Identificador de hardware (Android ID, IMEI, etc.)
+      example: "9774d56d682e549c"
+    OperatingSystem:
+      type: string
+      description: Sistema operativo del dispositivo
+      example: "Android 13"
+    UserAgent:
+      type: string
+      description: User agent del navegador/aplicación
+      example: "LosAndes/3.2.1 (Android 13)"
+
+# =======================================================================
+# == Location
+# =======================================================================
+Location:
+  type: object
+  description: Información de ubicación del dispositivo
+  required:
+    - GeographicLocation
+    - NetworkLocation
+  properties:
+    GeographicLocation:
+      $ref: "#/GeographicLocation"
+    NetworkLocation:
+      $ref: "#/NetworkLocation"
+
+# =======================================================================
+# == GeographicLocation
+# =======================================================================
+GeographicLocation:
+  type: object
+  description: Coordenadas geográficas
+  required:
+    - Latitude
+    - Longitude
+  properties:
+    Latitude:
+      type: string
+      description: Latitud en formato decimal
+      example: "-12.0464"
+    Longitude:
+      type: string
+      description: Longitud en formato decimal
+      example: "-77.0428"
+    Accuracy:
+      type: string
+      description: Precisión de la geolocalización en metros
+      example: "10.5"
+    Location:
+      type: string
+      description: Ubicación del lugar
+      example: "Lima, Perú"
+    LocationDateTime:
+      type: string
+      format: date-time
+      description: Timestamp de captura de la ubicación
+      example: "2025-01-30T10:30:00Z"
+
+# =======================================================================
+# == NetworkLocation
+# =======================================================================
+NetworkLocation:
+  type: object
+  description: Información de red del dispositivo
+  required:
+    - IpAddress
+  properties:
+    IpAddress:
+      type: string
+      description: Dirección IP del dispositivo
+      example: "190.236.123.45"
+    MacAddress:
+      type: string
+      description: Dirección MAC (si disponible)
+      example: "00:1B:44:11:3A:B7"
+    NetworkType:
+      type: string
+      enum: ["WIFI", "MOBILE_DATA", "ETHERNET"]
+      description: Tipo de red utilizada
+      example: "WIFI"
+
+# =======================================================================
+# == Transaction
+# =======================================================================
+Transaction:
+  type: object
+  description: Información de la transacción financiera
+  required:
+    - TransactionId
+    - TransactionType
+    - TransactionAmount
+    - TransactionDateTime
+  properties:
+    TransactionId:
+      type: string
+      description: Identificador único de la transacción
+      example: "TXN-789456123"
+    TransactionType:
+      type: string
+      enum:
+        - "FUNDS_TRANSFER_INTERBANK"
+        - "FUNDS_TRANSFER_INTERNAL"
+        - "FUNDS_TRANSFER_THIRD_PARTY"
+        - "PAYMENT"
+        - "WITHDRAWAL"
+        - "DEPOSIT"
+      description: Tipo de transacción
+      example: "FUNDS_TRANSFER_INTERBANK"
+    TransactionAmount:
+      $ref: "#/Amount"
+    TransactionDateTime:
+      type: string
+      format: date-time
+      description: Fecha y hora de la transacción
+      example: "2025-01-30T14:20:00Z"
+    TransactionStatus:
+      type: string
+      enum: ["PENDING", "COMPLETED", "FAILED", "CANCELLED"]
+      description: Estado de la transacción
+      example: "PENDING"
+    TransactionPurpose:
+      type: string
+      description: Propósito o descripción de la transacción
+      example: "Pago de servicios"
+    TransactionModality:
+      type: string
+      description: Modalidad de la transacción
+      example: "INMEDIATA"
+
+# =======================================================================
+# == Amount
+# =======================================================================
+Amount:
+  type: object
+  description: Monto monetario
+  required:
+    - AmountValue
+    - CurrencyDetails
+  properties:
+    AmountValue:
+      type: number
+      format: double
+      description: Valor del monto
+      example: 500.00
+    CurrencyDetails:
+      $ref: "#/CurrencyDetails"
+
+# =======================================================================
+# == CurrencyDetails
+# =======================================================================
+CurrencyDetails:
+  type: object
+  description: Objeto que contiene la información de la moneda
+  required:
+    - CurrencyInternalIdentifier
+    - CurrencyName
+    - Currency
+  properties:
+    CurrencyInternalIdentifier:
+      type: integer
+      description: Identificador interno de la caja
+      example: 1
+    CurrencyName:
+      type: string
+      description: Nombre de la moneda en el idioma local
+      example: "SOLES"
+    Currency:
+      type: string
+      description: Código de moneda ISO 4217
+      example: "PEN"
+
+# =======================================================================
+# == Enrollment
+# =======================================================================
+Enrollment:
+  type: object
+  description: Información del proceso de enrolamiento
+  required:
+    - EnrollmentId
+    - EnrollmentType
+    - EnrollmentDateTime
+  properties:
+    EnrollmentId:
+      type: string
+      description: Identificador único del enrolamiento
+      example: "ENR-456789"
+    EnrollmentType:
+      type: string
+      enum: ["PARTY_ONBOARDING", "PRODUCT_APPLICATION", "SERVICE_ACTIVATION"]
+      description: Tipo de enrolamiento
+      example: "PRODUCT_APPLICATION"
+    EnrollmentDateTime:
+      type: string
+      format: date-time
+      description: Fecha y hora del enrolamiento
+      example: "2025-01-30T10:45:00Z"
+    EnrollmentStatus:
+      type: string
+      enum: ["COMPLETED", "PENDING", "FAILED"]
+      description: Estado del enrolamiento
+      example: "COMPLETED"
+    EnrollmentChannel:
+      description: Canal donde se originó el enrolamiento
+      $ref: "#/Channel"
+    VerificationMethod:
+      type: string
+      enum: ["DOCUMENTARY", "BIOMETRIC", "IN_PERSON", "VIDEO_CALL"]
+      description: Método de verificación utilizado
+      example: "BIOMETRIC"
+    OperatorUser:
+      type: string
+      description: Usuario operador que realizó el enrolamiento (si aplica)
+      example: "OPERATOR-001"
+
+# =======================================================================
+# == BaseAccountReference
+# =======================================================================
+BaseAccountReference:
+  type: object
+  description: Referencia base a una cuenta
+  required:
+    - AccountId
+  properties:
+    AccountId:
+      type: string
+      description: Identificador único de la cuenta (formato string)
+      example: "ACC-2444-12345678-01"
+    AccountNumber:
+      type: string
+      description: Número de cuenta
+      example: "2444-12345678-01"
+    AccountTypeCode:
+      type: integer
+      description: Identificador numérico del tipo de cuenta
+      example: 1
+    AccountType:
+      type: string
+      description: Tipo de cuenta
+      example: "SAVINGS_ACCOUNT"
+
+# =======================================================================
+# == PartyAccountReference
+# =======================================================================
+PartyAccountReference:
+  description: Referencia a una Parte y su Cuenta asociada. Ahora incluye campos de perfil opcionales.
+  allOf:
+    - $ref: "#/PartyReference"
+    - $ref: "#/BaseAccountReference"
+    - type: object
+      description: Campos de perfil opcionales para enriquecer la transacción
+      properties:
+        NaturalPerson:
+          $ref: "#/NaturalPerson"
+        LegalEntity:
+          $ref: "#/LegalEntity"
+        Contact:
+          $ref: "#/Contact"
+
+# =======================================================================
+# == AccountReference
+# =======================================================================
+AccountReference:
+  description: Referencia a una Cuenta
+  allOf:
+    - $ref: "#/BaseAccountReference"
+    - type: object
+      properties:
+        AccountStatusCode:
+          type: integer
+          description: Identificador numérico del estado de la cuenta (idEstadoCuenta)
+          example: 1
+        AccountStatus:
+          type: string
+          enum: ["ACTIVE", "INACTIVE", "BLOCKED", "CLOSED"]
+          description: Estado de la cuenta
+          example: "ACTIVE"
+        BlockReasonCode:
+          type: integer
+          description: Identificador numérico del motivo de bloqueo
+          example: 102
+        BlockReasonDescription:
+          type: string
+          description: Descripción textual del motivo de bloqueo
+          example: "SOSPECHA DE FRAUDE"
+        StatusChangeDate:
+          type: string
+          format: date-time
+          description: Fecha del último cambio de estado
+          example: "2024-05-01T18:00:00Z"
+
+# =======================================================================
+# == FraudEvaluationResult
+# =======================================================================
+FraudEvaluationResult:
+  type: object
+  description: Resultado de la evaluación de fraude
+  required:
+    - EvaluationReference
+    - RiskAssessment
+    - FraudIndicator
+  properties:
+    EvaluationReference:
+      $ref: "#/FraudEvaluationReference"
+    RiskAssessment:
+      $ref: "#/RiskAssessment"
+    FraudIndicator:
+      $ref: "#/FraudIndicator"
+
+# =======================================================================
+# == FraudEvaluationReference
+# =======================================================================
+FraudEvaluationReference:
+  type: object
+  description: Referencias de la evaluación
+  required:
+    - EvaluationId
+  properties:
+    EvaluationId:
+      type: string
+      description: Identificador único de la evaluación en Ceptinel
+      example: "CORR-20250130-123456"
+    EvaluationDateTime:
+      type: string
+      format: date-time
+      description: Fecha y hora de la evaluación
+      example: "2025-01-30T14:20:05Z"
+
+# =======================================================================
+# == RiskAssessment
+# =======================================================================
+RiskAssessment:
+  type: object
+  description: Evaluación de riesgo
+  required:
+    - RiskScore
+    - RiskLevel
+  properties:
+    RiskScore:
+      type: number
+      format: float
+      minimum: 0
+      maximum: 1
+      description: Puntaje de riesgo (0.0 = bajo riesgo, 1.0 = alto riesgo)
+      example: 0.15
+    RiskLevel:
+      type: string
+      enum: ["LOW", "MEDIUM", "HIGH", "CRITICAL"]
+      description: Nivel de riesgo categorizado
+      example: "LOW"
+    ConfidenceLevel:
+      type: number
+      format: float
+      minimum: 0
+      maximum: 1
+      description: Nivel de confianza en la evaluación
+      example: 0.95
+    RiskFactors:
+      type: array
+      description: Factores que contribuyen al riesgo
+      items:
+        type: string
+      example:
+        - "Transacción dentro del patrón habitual"
+        - "Ubicación geográfica conocida"
+
+# =======================================================================
+# == FraudIndicator
+# =======================================================================
+FraudIndicator:
+  type: object
+  description: Indicadores de fraude
+  required:
+    - FraudDetected
+    - RecommendedAction
+  properties:
+    FraudDetected:
+      type: boolean
+      description: Indica si se detectó fraude
+      example: false
+    FraudType:
+      type: string
+      description: Tipo de fraude detectado (si aplica)
+      example: "IDENTITY_THEFT"
+    FraudProbability:
+      type: number
+      format: float
+      minimum: 0
+      maximum: 1
+      description: Probabilidad de fraude (0.0 a 1.0).
+      example: 0.10
+    RecommendedAction:
+      $ref: "#/RecommendedActionEnum"
+    AlertCodes:
+      type: array
+      description: Códigos de alerta generados
+      items:
+        type: string
+      example: ["ALT-001", "ALT-015"]
+    AlertDescriptions:
+      type: array
+      description: Descripciones de las alertas
+      items:
+        type: string
+      example:
+        - "Monto superior al promedio mensual"
+        - "Primera transacción en nueva ubicación"
+
+# =======================================================================
+# == RecommendedActionEnum
+# =======================================================================
+RecommendedActionEnum:
+  type: string
+  description: Acción recomendada por el motor de evaluación de fraude.
+  enum: ["ALLOW", "REVIEW", "BLOCK", "ESCALATE"]
+  example: "ALLOW"
+
+# =======================================================================
+# == AnalystRecommendedActionEnum
+# =======================================================================
+AnalystRecommendedActionEnum:
+  type: string
+  description: Acción recomendada y actualizada por un analista.
+  enum: ["ALLOW", "BLOCK"]
+  example: "ALLOW"
+
+# =======================================================================
+# == AuthenticationRequirements
+# =======================================================================
+AuthenticationRequirements:
+  type: object
+  description: Requerimientos de autenticación adicional
+  required:
+    - RequiredAuthenticationLevel
+  properties:
+    RequiredAuthenticationLevel:
+      type: string
+      enum: ["NONE", "OTP", "BIOMETRIC", "CFM_TOKEN", "MULTI_FACTOR"]
+      description: Nivel adicional de autenticación requerido
+      example: "OTP"
+    AuthenticationMethods:
+      type: array
+      description: Métodos de autenticación disponibles/sugeridos
+      items:
+        type: string
+        enum:
+          [
+            "SMS_OTP",
+            "EMAIL_OTP",
+            "BIOMETRIC_FACE",
+            "BIOMETRIC_FINGERPRINT",
+            "CFM_TOKEN",
+            "AUTH_APP_PUSH",
+          ]
+      example: ["SMS_OTP", "EMAIL_OTP"]
+    ExpiresIn:
+      type: integer
+      description: Tiempo de expiración en segundos para completar autenticación
+      example: 300
+
+# =======================================================================
+# == AccountProfileData
+# =======================================================================
+AccountProfileData:
+  type: object
+  description: Datos completos de perfil de cuenta
+  properties:
+    AccountDetails:
+      $ref: "#/AccountDetails"
+    BalanceInformation:
+      $ref: "#/BalanceInformation"
+    TransactionPatterns:
+      $ref: "#/TransactionPatterns"
+    ActivityMetrics:
+      $ref: "#/ActivityMetrics"
+
+# =======================================================================
+# == AccountDetails
+# =======================================================================
+AccountDetails:
+  type: object
+  description: Detalles de la cuenta
+  properties:
+    ProductCode:
+      type: string
+      description: Código del producto asociado a la cuenta
+      example: "2444"
+    ProductName:
+      type: string
+      description: Nombre del producto asociado a la cuenta
+      example: "AHORRO DIGITAL"
+    OpeningDate:
+      type: string
+      format: date-time
+      description: Fecha de creación/apertura de la cuenta
+      example: "2024-01-15T10:30:00Z"
+    ActivationDate:
+      type: string
+      format: date-time
+      description: Fecha de activación de la cuenta
+      example: "2024-01-15T11:00:00Z"
+    OpeningChannelCode:
+      type: integer
+      description: Identificador numérico del canal de registro
+      example: 10
+    OpeningChannel:
+      type: string
+      description: Descripción textual del canal de registro
+      example: "MOBILE_APP"
+
+# =======================================================================
+# == BalanceInformation
+# =======================================================================
+BalanceInformation:
+  type: object
+  description: Información de saldo de la cuenta
+  properties:
+    CurrentBalance:
+      description: Saldo actual de la cuenta
+      $ref: "#/Amount"
+    AvailableBalance:
+      description: Saldo disponible para transacciones
+      $ref: "#/Amount"
+    FrozenBalance:
+      description: Saldo congelado o retenido
+      $ref: "#/Amount"
+    AverageBalance:
+      description: Saldo promedio de la cuenta
+      $ref: "#/Amount"
+    MinimumBalance:
+      description: Saldo mínimo permitido en la cuenta
+      $ref: "#/Amount"
+
+# =======================================================================
+# == TransactionPatterns
+# =======================================================================
+TransactionPatterns:
+  type: object
+  description: Patrones de transacción de la cuenta
+  properties:
+    DailyAverageTransactions:
+      type: number
+      description: Transacciones promedio diarias
+      example: 1.5
+    MonthlyTransactionLimit:
+      $ref: "#/Amount"
+    TypicalTransactionHours:
+      type: array
+      description: Horas habituales para transacciones
+      items:
+        type: string
+      example: ["09:00-12:00", "15:00-18:00"]
+
+# =======================================================================
+# == ActivityMetrics
+# =======================================================================
+ActivityMetrics:
+  type: object
+  description: Métricas de actividad de la cuenta
+  properties:
+    LastTransactionDate:
+      type: string
+      format: date-time
+      description: Fecha y hora de la última transacción
+      example: "2025-01-29T14:30:00Z"
+    LastLoginDate:
+      type: string
+      format: date-time
+      description: Fecha y hora del último login asociado a la cuenta
+      example: "2025-01-30T09:15:00Z"
+    MonthlyLoginCount:
+      type: integer
+      description: Número de logins mensuales
+      example: 45
+    AverageSessionDuration:
+      type: integer
+      description: Duración promedio de sesión en minutos
+      example: 8
+
+# =======================================================================
+# == BehavioralProfile
+# =======================================================================
+BehavioralProfile:
+  type: object
+  description: Perfil comportamental completo del usuario
+  properties:
+    RiskProfile:
+      $ref: "#/RiskProfile"
+    BehavioralPatterns:
+      $ref: "#/BehavioralPatterns"
+    AnomalyIndicators:
+      $ref: "#/AnomalyIndicators"
+    ConfidenceScore:
+      type: number
+      format: float
+      minimum: 0
+      maximum: 1
+      description: Puntaje de confianza en el perfil comportamental
+      example: 0.85
+
+# =======================================================================
+# == RiskProfile
+# =======================================================================
+RiskProfile:
+  type: object
+  description: Perfil de riesgo del usuario
+  properties:
+    OverallRiskScore:
+      type: number
+      description: Puntaje de riesgo general
+      format: float
+      minimum: 0
+      maximum: 1
+      example: 0.25
+    RiskCategory:
+      type: string
+      description: Categoría de riesgo
+      enum: ["LOW", "MEDIUM", "HIGH", "VERY_HIGH"]
+      example: "LOW"
+    RiskFactors:
+      type: array
+      description: Factores que contribuyen al riesgo
+      items:
+        type: string
+      example: ["LOCATION_CONSISTENCY", "DEVICE_STABILITY"]
+
+# =======================================================================
+# == BehavioralPatterns
+# =======================================================================
+BehavioralPatterns:
+  type: object
+  description: Patrones de comportamiento identificados
+  properties:
+    TypicalLoginHours:
+      type: array
+      description: Horas habituales para logins
+      items:
+        type: string
+      example: ["08:00-10:00", "18:00-20:00"]
+    TypicalTransactionHours:
+      type: array
+      description: Horas habituales para transacciones
+      items:
+        type: string
+      example: ["12:00-14:00", "19:00-21:00"]
+    PreferredChannels:
+      type: array
+      description: Canales preferidos para transacciones
+      items:
+        type: string
+        enum: ["MOBILE_APP", "INTERNET_BANKING", "ATM", "BRANCH"]
+      example: ["MOBILE_APP"]
+    GeographicConsistency:
+      type: number
+      description: Nivel de consistencia geográfica
+      format: float
+      minimum: 0
+      maximum: 1
+      example: 0.95
+
+# =======================================================================
+# == AnomalyIndicators
+# =======================================================================
+AnomalyIndicators:
+  type: object
+  description: Indicadores de comportamiento anómalo
+  properties:
+    RecentLocationChanges:
+      type: integer
+      description: Número de cambios de ubicación recientes
+      example: 0
+    DeviceChanges:
+      type: integer
+      description: Número de cambios de dispositivo recientes
+      example: 1
+    UnusualTransactionTimes:
+      type: integer
+      description: Transacciones en horarios no habituales
+      example: 0
+    FailedAuthenticationAttempts:
+      type: integer
+      description: Intentos fallidos de autenticación recientes
+      example: 0
+
+# =======================================================================
+# == DatePeriod
+# =======================================================================
+DatePeriod:
+  type: object
+  description: Período de tiempo
+  required:
+    - StartDateTime
+    - EndDateTime
+  properties:
+    StartDateTime:
+      type: string
+      format: date-time
+      description: Fecha y hora de inicio
+      example: "2025-01-01T00:00:00Z"
+    EndDateTime:
+      type: string
+      format: date-time
+      description: Fecha y hora de fin
+      example: "2025-01-31T23:59:59Z"
+
+# =======================================================================
+# == SystemInformation
+# =======================================================================
+SystemInformation:
+  type: object
+  description: Información del sistema
+  properties:
+    SystemDateTime:
+      type: string
+      format: date-time
+      description: Fecha y hora del sistema
+      example: "2025-01-30T14:20:05Z"
+    ProcessingTime:
+      type: integer
+      description: Tiempo de procesamiento en milisegundos
+      example: 250
+    SystemVersion:
+      type: string
+      description: Versión del sistema
+      example: "2.1.0"
+
+# =======================================================================
+# == EngineRequestDictionary
+# =======================================================================
+EngineRequestDictionary:
+  type: array
+  description: Lista de variables de negocio (clave-valor) necesarias para que el motor de reglas evalúe el flujo.
+  items:
+    type: object
+    required:
+      - FlowVariableName
+      - FlowVariableValue
+      - FlowVariableType
+    properties:
+      FlowVariableName:
+        type: string
+        description: Nombre de la variable utilizada en el flujo de reglas.
+        example: "montoSolicitado"
+      FlowVariableValue:
+        description: Valor de la variable. Puede ser de tipo string, number, integer o boolean.
+        oneOf:
+          - type: string
+          - type: number
+          - type: integer
+          - type: boolean
+        example: 15000
+      FlowVariableType:
+        description: Tipo de dato de la variable.
+        type: string
+        enum: [string, number, integer, boolean]
+
+# =======================================================================
+# == ExceptionItem
+# =======================================================================
+ExceptionItem:
+  description: Define una excepción (aprobación manual) para una política específica.
+  allOf:
+    - $ref: "#/ApprovalInfo"
+    - type: object
+      required:
+        - PolicyId
+        - ApprovalStateId
+        - ApprovalChannelId
+      properties:
+        PolicyId:
+          type: string
+          description: Identificador de la política que se está excepcionando.
+          example: "POL-001"
+        ApprovalStateId:
+          $ref: "#/ApprovalStateEnum"
+        ApprovalChannelId:
+          $ref: "#/ApprovalChannelEnum"
+
+# =======================================================================
+# == ExclusionItem
+# =======================================================================
+ExclusionItem:
+  description: Define una exclusión (omisión) para una política en el flujo.
+  allOf:
+    - $ref: "#/ApprovalInfo"
+    - type: object
+      required:
+        - PolicyId
+        - ApprovalState
+        - ApprovalChannelId
+      properties:
+        PolicyId:
+          type: string
+          description: Identificador de la política a excluir de la evaluación.
+          example: "POL-005"
+        ApprovalState:
+          $ref: "#/ApprovalStateEnum"
+        ApprovalChannelId:
+          $ref: "#/ApprovalChannelEnum"
+
+# =======================================================================
+# == ApprovalInfo
+# =======================================================================
+ApprovalInfo:
+  type: object
+  description: Información de la aprobación de una excepción o exclusión.
+  properties:
+    ApprovalDate:
+      type: string
+      format: date-time
+      description: Fecha y hora en que se aprobó la excepción.
+      example: "2025-01-30T10:30:00Z"
+    ApprovalReason:
+      type: string
+      description: Justificación o motivo de la aprobación de la excepción.
+      example: "Cliente con historial positivo"
+    ExceptionSupport:
+      type: string
+      description: Documento o evidencia que sustenta la aprobación de la excepción.
+      example: "Excepción aprobada por analista senior"
+
+# =======================================================================
+# == ChampionChallengerConfig
+# =======================================================================
+ChampionChallengerConfig:
+  type: object
+  description: Contenedor para la configuración de pruebas A/B (Champion-Challenger).
+  required:
+    - RandomBucket
+  properties:
+    RandomBucket:
+      type: integer
+      minimum: 0
+      maximum: 999
+      description: |
+        Valor numérico (0-999) usado para asignar la ejecución a un grupo 
+        (Champion o Challenger) y determinar qué versión de la regla se aplica.
+        - 0-399: Champion (versión estable)
+        - 400-999: Challenger (versión experimental)
+      example: 450
+
+# =======================================================================
+# == ChampionChallengerResult
+# =======================================================================
+ChampionChallengerResult:
+  type: object
+  description: Resultado de la asignación Champion-Challenger.
+  required:
+    - ChallengerFlag
+  properties:
+    ChallengerFlag:
+      type: boolean
+      description: "Indica si la ejecución correspondió a un 'Challenger' (true) o a un 'Champion' (false)."
+      example: true
+
+# =======================================================================
+# == RuleResultItem
+# =======================================================================
+RuleResultItem:
+  type: object
+  required:
+    - PolicyId
+    - PolicyTypeId
+    - PolicyZoneId
+    - RuleMessage
+    - RuleSuccessFlag
+    - BusinessRuleSuccessFlag
+    - IsCurrent
+  properties:
+    PolicyId:
+      type: string
+      description: Identificador de la política evaluada.
+      example: "POL-001"
+    PolicyTypeId:
+      $ref: "#/PolicyTypeEnum"
+    PolicyZoneId:
+      $ref: "#/PolicyZoneEnum"
+    RuleMessage:
+      type: string
+      description: Mensaje descriptivo del resultado de la regla.
+      example: "Regla de monto máximo superada"
+    RuleSuccessFlag:
+      type: boolean
+      description: Indica si la regla se cumplió (true) or no (false).
+      example: false
+    BusinessRuleSuccessFlag:
+      type: boolean
+      description: Indica si la validación de negocio asociada a la regla fue exitosa.
+      example: true
+    Exception:
+      type: object
+      description: Información sobre la excepcionabilidad de la regla.
+      properties:
+        ApprovalChannelId:
+          type: integer
+          description: Canal de aprobación para la excepción.
+          example: 2
+        ExceptionableFlag:
+          type: boolean
+          description: Indica si la regla es candidata a ser excepcionada.
+          example: true
+        ExceptionableValidationFlag:
+          type: boolean
+          description: Indica si la regla cumplió con los criterios para ser excepcionada.
+          example: true
+    IsCurrent:
+      type: boolean
+      description: Indica si la regla evaluada está vigente.
+      example: true

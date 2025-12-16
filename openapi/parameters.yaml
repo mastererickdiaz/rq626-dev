@@ -1,0 +1,52 @@
+ChannelIdentification:
+  name: channelIdentification
+  in: header
+  description: Identificador del canal que origina la petición.
+  required: true
+  schema:
+    type: integer
+  example: 1
+MessageIdentification:
+  name: messageIdentification
+  in: header
+  description: Identificador único de la transacción (Trace ID), usado para seguimiento y auditoría.
+  required: true
+  schema:
+    type: string
+    example: "692a1eb05f80bf73a90b7223"
+IdentificationType:
+  name: identificationType
+  in: query
+  description: Tipo de documento de identificación del cliente.
+  required: true
+  schema:
+    type: string
+    enum: ["DNI", "RUC", "PASSPORT", "LICENSE", "CE", "OTHER"]
+    example: "DNI"
+IdentificationDocument:
+  name: identificationDocument
+  in: query
+  description: Número de documento de identificación del cliente.
+  required: true
+  schema:
+    type: string
+    maxLength: 20
+    example: "12345678912"
+StartDate:
+  name: startDate
+  in: query
+  description: Fecha de inicio del rango de consulta para las métricas (Formato YYYY-MM-DD).
+  required: true
+  schema:
+    type: string
+    format: date
+    example: "2025-01-01"
+EndDate:
+  name: endDate
+  in: query
+  description: Fecha final del rango de consulta para las métricas (Formato YYYY-MM-DD).
+  required: true
+  schema:
+    type: string
+    format: date
+    example: "2025-01-31"

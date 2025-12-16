@@ -1,0 +1,351 @@
+openapi: 3.0.3
+info:
+  title: customer-credit-rating-s
+  version: 1.0.0
+  description: API para consultar la calificación crediticia de un cliente.
+  contact:
+    name: Equipo de Arquitectura
+    email: tic-ediaz@cajalosandes.pe
+servers:
+  - url: /customer-credit-rating-s/v1
+tags:
+  - name: CustomerCreditRating
+    description: Operaciones relacionadas con la calificación crediticia de un cliente.
+paths:
+  /internal-reporting/retrieve:
+    get:
+      tags:
+        - CustomerCreditRating
+      summary: Obtener calificación crediticia del cliente
+      description: Obtiene la información completa de la calificación crediticia de un cliente.
+      operationId: retrieveCustomerCreditRating
+      parameters:
+        - $ref: "./openapi/parameters.yaml#/ChannelIdentification"
+        - $ref: "./openapi/parameters.yaml#/MessageIdentification"
+        - $ref: "./openapi/parameters.yaml#/IdentificationType"
+        - $ref: "./openapi/parameters.yaml#/IdentificationDocument"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RESPONSE_RetrieveCustomerCreditRating"
+              example:
+                RetrieveCustomerCreditRatingResponse:
+                  BasicInformation:
+                    PartyIdentification:
+                      Type: "DNI"
+                      Number: "12345678"
+                      IssuingAuthority: "RENIEC"
+                      IssueDate: "2015-05-10"
+                      ExpiryDate: "2025-05-10"
+                    NaturalPerson:
+                      PersonIdentification:
+                        Identification:
+                          Type: "DNI"
+                          Number: "12345678"
+                          IssuingAuthority: "RENIEC"
+                        PersonName:
+                          GivenName: "Jhon Dereck"
+                          LastName: "Prada"
+                          MothersLastName: "Smith"
+                        DemographicInformation:
+                          BirthDate: "1990-05-15"
+                          Gender: "MALE"
+                          Nationality: "PERUANA"
+                        Contact:
+                          EmailAddress: "cliente@ejemplo.com"
+                          PhoneNumber: "+51987654321"
+                          Address: "Av. Principal 123, Lima"
+                      PersonName:
+                        GivenName: "Jhon Dereck"
+                        LastName: "Prada"
+                        MothersLastName: "Smith"
+                        FullName: "Prada Smith Jhon Dereck"
+                      BusinessInformation:
+                        HasBusinessActivity: true
+                        Identification:
+                          Type: "RUC"
+                          Number: "12345678912"
+                          IssuingAuthority: "SUNAT"
+                        LegalEntityName:
+                          BusinessName: "COMERCIAL PRADA S.A.C."
+                          TradeName: "COMERCIAL PRADA"
+                        BusinessActivity: "COMERCIO AL POR MENOR..."
+                        BusinessAddress: "AVENIDA LOS ALAMOS 123..."
+                        BusinessStartDate: "2010-06-15"
+                    TaxpayerInformation:
+                      TaxpayerType: "SOCIEDAD ANONIMA CERRADA"
+                      WithholdingAgent: "S"
+                      TaxpayerStatusCode: "12"
+                      TaxpayerStatus: "BAJA DEFINITIVA"
+                      DomicileStatusCode: "1"
+                      DomicileStatus: "HABIDO"
+                    EconomicActivity:
+                      ActivityStartDate: "2001-08-01"
+                      EconomicActivityCode: "1040"
+                      EconomicActivity: "ELABORACIÓN DE ACEITES..."
+                    RegistrationInformation:
+                      PublicRegistryRegistrationDate: "2001-01-10"
+                      RegistryEntryNumber: "101234370000"
+                      Folio: "351"
+                      Seat: "1"
+                  GeneralInformation:
+                    Address:
+                      AddressLine: "AVENIDA CANAVAL Y MOREYRA..."
+                      Source: "SUNAT - DOMICILIO FISCAL"
+                    LegalRepresentatives:
+                      - PersonIdentification:
+                          Identification:
+                            Type: "DNI"
+                            Number: "12345678"
+                            IssuingAuthority: "RENIEC"
+                          PersonName:
+                            GivenName: "Juan"
+                            LastName: "Lopez"
+                            MothersLastName: "Perez"
+                          Contact:
+                            EmailAddress: "juan@ejemplo.com"
+                            PhoneNumber: "+51987654322"
+                        RepresentationType: "LEGAL_REPRESENTATIVE"
+                        RepresentativeId: "REP-001"
+                    IsLegalRepresentativeOf:
+                      - DocumentIdentification:
+                          Type: "RUC"
+                          Number: "12345678912"
+                          IssuingAuthority: "SUNAT"
+                        BusinessName: "EMPRESA SOCIAL"
+                        PositionStartDate: "2018-03-28"
+                        Position: "APODERADO"
+                        Status: "ACTIVO"
+                        CurrentSemaphore: "12"
+                        PreviousSemaphore: "1"
+                        BestWorstSemaphoreLast12Months: "2"
+                  QuickConsultation:
+                    Summary:
+                      ProcessingDate: "2022-10-04"
+                      CurrentSemaphore: "2"
+                      PreviousSemaphore: "2"
+                      WorstBestSemaphore: "2"
+                      Score: "0.1767"
+                      RegulatedFinancialEntitiesNumber: "1"
+                      UnregulatedFinancialEntitiesNumber: "1"
+                      TotalDebt: "109065555.63"
+                      AverageRating: "NOR 82% CPP 18%..."
+                      TaxDebt: "0.00"
+                      LaborDebt: "0.00"
+                      UnpaidDebt: "0.00"
+                      ProtestedDocumentsDebt: "35471.09"
+                      SbsMicrofinanceDebt: "9030084.54"
+                    CreditIndicators:
+                      - Indicator: "Línea de Crédito"
+                    SbsMicrofinanceDebts:
+                      - Year: 2022
+                        Month: 2
+                        Rating: "NOR 82% CPP 18%..."
+                        EntitiesNumber: "1"
+                        EntityName: "INTERBANK"
+                        RatingCode: "NOR"
+                        DebtBalance: 775135.29
+                        DaysPastDue: 0
+                        ProcessingDate: "2022-02-12"
+                        ReportDate: "2022-12-12"
+                    OverdueDocuments:
+                      - Year: 2023
+                        Month: 2
+                        SourceId: 5
+                        SourceName: "Documentos Impagos"
+                        TotalPastDue: 221.87
+                        MaxDaysPastDue: 1473
+                        EntityName: "AMERICA MOVIL PERU S.A.C."
+                        DebtAmount: 166.87
+                        DaysPastDue: 695
+                        DocumentsNumber: 4
+                        EntityType: "CTC"
+                        ControversyFlag: "N"
+                    CreditLineUtilizations:
+                      - Institution: "BBVA"
+                        ApprovedLine: 1000
+                        UnusedLine: 1000
+                        UsedLine: 0
+                        CreditType: "TCO"
+                    ProtestedDocuments:
+                      - GroupingType: "Aceptante"
+                        Status: "Regularizados"
+                        DocumentsNumber: "48"
+                        TotalAmount: 4906751.06
+                        MaxDaysPastDue: "-"
+                  GuarantorsAndCoDebtors:
+                    GuaranteedParties:
+                      - GuaranteedParty:
+                          GuaranteedIdentification:
+                            Type: "DNI"
+                            Number: "12345678"
+                            IssuingAuthority: "RENIEC"
+                          GuaranteeName: "LOPEZ PEREZ JUAN LUIS"
+                        RiskIndicators:
+                          CurrentSemaphore: "2"
+                          PreviousSemaphore: "2"
+                          SemaphoreLast12Months: "4"
+                        Creditor:
+                          CreditorIdentification:
+                            Type: "RUC"
+                            Number: "12345678912"
+                            IssuingAuthority: "SUNAT"
+                          CreditorBusinessName: "CENTRO DE PROMOCION..."
+                          Rating: "PER"
+                          DebtBalance: 6701.34
+                          EntityType: "MICROFINANZAS"
+                          ReportDate: "2022-07-31"
+                    CoDebtors:
+                      - Party:
+                          PartyReference:
+                            PartyId: "CLI-123456"
+                            PartyTypeCode: 1
+                            PartyType: "INDIVIDUAL"
+                            PartyStatusCode: 1
+                            PartyStatus: "ACTIVE"
+                            RegistrationDate: "2023-01-15T10:30:00Z"
+                          Contact:
+                            EmailAddress: "cliente@ejemplo.com"
+                            PhoneNumber: "+51987654321"
+                            Address: "Av. Principal 123, Lima"
+                          PersonIdentification:
+                            Identification:
+                              Type: "DNI"
+                              Number: "12345678"
+                              IssuingAuthority: "RENIEC"
+                            PersonName:
+                              GivenName: "Juan"
+                              LastName: "Flores"
+                              MothersLastName: "Garcia"
+                            Contact:
+                              EmailAddress: "juan.flores@ejemplo.com"
+                              PhoneNumber: "+51987654323"
+                        CreditId: "A34351566713"
+                        ProcessingDate: "2018-12-31"
+                        CoDebtType: 1
+                        DebtAmount: 473732.24
+                  ForeignTrade:
+                    YearlySummary:
+                      - Year: 2021
+                        Activity: "IMPORTACIÓN"
+                        OperationsNumber: 8
+                        AmountUSD: 572504.65
+                        CountriesNumber: 4
+                        MainCountries: "ARGENTINA, CHINA, DENMARK"
+                    MonthlySummary:
+                      - Activity: "IMPORTACIÓN"
+                        Year: 2021
+                        Month: "AGOSTO"
+                        OperationsNumber: 2
+                        AmountUSD: 713211.15
+                        CountriesNumber: 1
+                        MainCountries: "CHINA"
+                  SbsDebtByOperation:
+                    CreditorName: "BCP"
+                    ProcessingDate: "2022-04-25"
+                    PublicationDate: "2022-03-31"
+                    Rating: "NOR"
+                    AccountingInfo:
+                      AccountingAccount: "14"
+                      AccountingAccountDescription: "CREDITOS DIRECTOS"
+                      TotalOperationAmount: 230241461.52
+                      MaxDaysPastDue: 0
+                  InquiryFootprint:
+                    InquirySummary:
+                      - EconomicActivity: "ACTIVIDADES DE IMPRESION"
+                        MonthYear: "03-2023"
+                        ConsultationCount: 4
+                    InquiryDetails:
+                      - EconomicActivity: "ACTIVIDADES DE IMPRESION"
+                        EntityName: "FINANCIERA PROEMPRESA S.A."
+                        MonthYear: "02-2023"
+                        LastConsultationDate: "2023-02-18"
+                        ConsultationCount: 3
+                  SabioAssessment:
+                    Result: "REVISAR"
+                    Reasons:
+                      - "Presenta Calificación Cpp..."
+                    Score: 652
+                    ScoreLevel: "Puntaje Medio"
+                    ScoreDescription: "Estadísticamente, en este nivel..."
+                    PaymentCapacity: "S/ 321 - S/ 471"
+                    EstimatedInstallment: "S/. 2,322.00"
+                  OtherProducts:
+                    Products:
+                      - ProductCode: "1"
+                        ProductName: "Score Predictivo (AML)"
+                        Value: "730"
+                        Description1: "Puntaje alto"
+                        Description2: "Bancarizado"
+
+        "400":
+          $ref: "openapi/responses.yaml#/BadRequest"
+        "401":
+          $ref: "openapi/responses.yaml#/Unauthorized"
+        "403":
+          $ref: "openapi/responses.yaml#/Forbidden"
+        "404":
+          $ref: "openapi/responses.yaml#/NotFound"
+        "422":
+          $ref: "openapi/responses.yaml#/UnprocessableEntity"
+        "500":
+          $ref: "openapi/responses.yaml#/InternalServerError"
+        "502":
+          $ref: "openapi/responses.yaml#/BadGateway"
+        "504":
+          $ref: "openapi/responses.yaml#/GatewayTimeout"
+
+components:
+  parameters:
+    $ref: "./openapi/parameters.yaml"
+
+  schemas:
+    RESPONSE_RetrieveCustomerCreditRating:
+      type: object
+      required:
+        - RetrieveCustomerCreditRatingResponse
+      properties:
+        RetrieveCustomerCreditRatingResponse:
+          type: object
+          description: "Respuesta completa de calificación de crédito del cliente"
+          properties:
+            BasicInformation:
+              $ref: "./openapi/schemas.yaml#/BasicInformation"
+            GeneralInformation:
+              $ref: "./openapi/schemas.yaml#/GeneralInformation"
+            QuickConsultation:
+              $ref: "./openapi/schemas.yaml#/QuickConsultation"
+            GuarantorsAndCoDebtors:
+              $ref: "./openapi/schemas.yaml#/GuarantorsAndCoDebtors"
+            ForeignTrade:
+              $ref: "./openapi/schemas.yaml#/ForeignTrade"
+            SbsDebtByOperation:
+              $ref: "./openapi/schemas.yaml#/SbsDebtByOperation"
+            InquiryFootprint:
+              $ref: "./openapi/schemas.yaml#/InquiryFootprint"
+            SabioAssessment:
+              $ref: "./openapi/schemas.yaml#/SabioAssessment"
+            OtherProducts:
+              $ref: "./openapi/schemas.yaml#/OtherProducts"
+
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    OAuth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: /oauth/token
+          scopes:
+            customer-credit-rating-s.read: Permiso de lectura para el servicio de calificación crediticia.
+            customer-credit-rating-s.write: Permiso de escritura para el servicio de calificación crediticia.
+security:
+  - BearerAuth: []
+  - OAuth2:
+      - customer-credit-rating-s.read
+      - customer-credit-rating-s.write

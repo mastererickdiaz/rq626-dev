@@ -1,0 +1,102 @@
+BadRequest:
+  description: Solicitud incorrecta. El servidor no puede procesar la solicitud debido a un error del cliente (p. ej., sintaxis mal formada).
+  content:
+    application/json:
+      schema:
+        $ref: "#/ErrorResponse"
+      example:
+        errors:
+          - status_code: "400"
+            message: "La solicitud tiene un formato incorrecto."
+Unauthorized:
+  description: No autorizado. Las credenciales de autenticación son inválidas, están ausentes o han expirado.
+  content:
+    application/json:
+      schema:
+        $ref: "#/ErrorResponse"
+      example:
+        errors:
+          - status_code: "401"
+            message: "El token de autenticación es inválido o ha expirado."
+Forbidden:
+  description: Prohibido. El cliente está autenticado pero no tiene los permisos necesarios para realizar esta acción.
+  content:
+    application/json:
+      schema:
+        $ref: "#/ErrorResponse"
+      example:
+        errors:
+          - status_code: "403"
+            message: "No tiene permiso para acceder a este recurso."
+NotFound:
+  description: No encontrado. El recurso solicitado no existe.
+  content:
+    application/json:
+      schema:
+        $ref: "#/ErrorResponse"
+      example:
+        errors:
+          - status_code: "404"
+            message: "El recurso solicitado no fue encontrado."
+UnprocessableEntity:
+  description: Entidad no procesable. La solicitud fue bien formada pero contenía errores semánticos (p. ej., de validación).
+  content:
+    application/json:
+      schema:
+        $ref: "#/ErrorResponse"
+      example:
+        errors:
+          - status_code: "422"
+            message: "El tipo de documento 'XYZ' no es válido."
+InternalServerError:
+  description: Error interno del servidor. Ocurrió un error inesperado en el servidor que impidió completar la solicitud.
+  content:
+    application/json:
+      schema:
+        $ref: "#/ErrorResponse"
+      example:
+        errors:
+          - status_code: "500"
+            message: "Ocurrió un error interno al procesar la solicitud."
+BadGateway:
+  description: Bad Gateway. El servidor, actuando como puerta de enlace, recibió una respuesta inválida de un servicio ascendente.
+  content:
+    application/json:
+      schema:
+        $ref: "#/ErrorResponse"
+      example:
+        errors:
+          - status_code: "502"
+            message: "El servicio de scoring no está disponible."
+GatewayTimeout:
+  description: Gateway Timeout. El servidor, actuando como puerta de enlace, no recibió una respuesta a tiempo de un servicio ascendente.
+  content:
+    application/json:
+      schema:
+        $ref: "#/ErrorResponse"
+      example:
+        errors:
+          - status_code: "504"
+            message: "El tiempo de espera para el servicio de scoring ha sido excedido."
+ErrorResponse:
+  type: object
+  description: Estructura estándar para respuestas de error.
+  required:
+    - errors
+  properties:
+    errors:
+      type: array
+      items:
+        type: object
+        required:
+          - status_code
+          - message
+        properties:
+          status_code:
+            type: string
+            description: Código de estado HTTP asociado al error.
+            example: "400"
+          message:
+            type: string
+            description: Descripción detallada del error.
+            example: "La solicitud tiene un formato incorrecto."
