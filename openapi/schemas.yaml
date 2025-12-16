@@ -6,13 +6,13 @@ BasicInformation:
   description: "Módulo 1: Información Básica"
   properties:
     PartyIdentification:
-      description: "Identification of the customer (person or company)."
+      description: "Identificación del cliente (persona o empresa)."
       $ref: "#/Identification"
     NaturalPerson:
-      description: "Details if the customer is a natural person."
+      description: "Detalles si el cliente es una persona natural."
       $ref: "#/NaturalPerson"
     LegalEntityName:
-      description: "Name details if the customer is a legal entity."
+      description: "Detalles del nombre si el cliente es una persona jurídica."
       $ref: "#/LegalEntityName"
     TaxpayerInformation:
       $ref: "#/TaxpayerInformation"
@@ -21,7 +21,7 @@ BasicInformation:
     RegistrationInformation:
       $ref: "#/RegistrationInformation"
     RelatedPartyIdentification:
-      description: "Identification of a related party, if any."
+      description: "Identificación de una parte relacionada, si existe."
       $ref: "#/Identification"
 
 # =======================================================================
@@ -31,13 +31,18 @@ GeneralInformation:
   type: object
   description: "Módulo 2: Información General"
   properties:
-    Address:
-      $ref: "#/CustomerAddress"
+    Addresses:
+      description: "Lista de direcciones registradas."
+      type: array
+      items:
+        $ref: "#/CustomerAddress"
     LegalRepresentatives:
+      description: "Lista de representantes legales del cliente."
       type: array
       items:
         $ref: "#/LegalRepresentative"
     IsLegalRepresentativeOf:
+      description: "Lista de empresas de las que el cliente es representante legal."
       type: array
       items:
         $ref: "#/LegalRepresentationRelationship"
@@ -294,20 +299,20 @@ InformativeDebtEntity:
 # =======================================================================
 GuarantorsAndCoDebtors:
   type: object
-  description: "Module 4: Guarantors and Co-Debtors"
+  description: "Módulo 4: Avales y Codeudores"
   properties:
     IsGuarantorFor:
-      description: "List of parties the customer is a guarantor for."
+      description: "Lista de partes de las que el cliente es garante."
       type: array
       items:
         $ref: "#/GuarantorRelationship"
     IsGuaranteedBy:
-      description: "List of parties that guarantee the customer."
+      description: "Lista de partes que garantizan al cliente."
       type: array
       items:
         $ref: "#/GuarantorRelationship"
     CoDebts:
-      description: "List of co-debts for the customer."
+      description: "Lista de codeudas del cliente."
       type: array
       items:
         $ref: "#/CoDebtor"
@@ -317,13 +322,13 @@ GuarantorsAndCoDebtors:
 # =======================================================================
 GuarantorRelationship:
   type: object
-  description: "Represents a guarantor relationship, either as a guarantor or as the guaranteed party."
+  description: "Representa una relación de garante, ya sea como garante o como parte garantizada."
   properties:
     Identification:
       $ref: "#/Identification"
     BusinessName:
       type: string
-      description: "Business name of the related party."
+      description: "Razón social de la parte relacionada."
       example: "LOPEZ PEREZ JUAN LUIS"
     RiskIndicators:
       $ref: "#/RiskIndicators"
@@ -337,34 +342,34 @@ GuarantorRelationship:
 # =======================================================================
 CoDebtor:
   type: object
-  description: "Co-debtor information."
+  description: "Información del codeudor."
   properties:
     Identification:
       $ref: "#/Identification"
     BusinessName:
       type: string
-      description: "Business name"
+      description: "Razón social"
       example: "LOPEZ PEREZ JUAN LUIS"
     CreditId:
       type: string
-      description: "Credit identifier"
+      description: "Identificador del crédito"
       example: "A34351566713"
     ProcessingDate:
       type: string
       format: date
-      description: "Processing date"
+      description: "Fecha de proceso"
       example: "2018-12-31"
     CoDebtType:
       type: integer
-      description: "Co-debt type (see appendix)"
+      description: "Tipo de codeuda (ver anexo)"
       example: 1
     DebtAmount:
       type: number
       format: float
-      description: "Amount of the debt"
+      description: "Monto de la deuda"
       example: 473732.24
     Creditors:
-      description: "Details of the co-debt creditors."
+      description: "Detalles de los acreedores codeudores."
       type: array
       items:
         $ref: "#/CoDebtCreditor"
@@ -374,18 +379,18 @@ CoDebtor:
 # =======================================================================
 CoDebtCreditor:
   type: object
-  description: "Creditor of a co-debt."
+  description: "Acreedor de una codeuda."
   properties:
     Identification:
       $ref: "#/Identification"
     BusinessName:
       type: string
-      description: "Creditor's business name"
+      description: "Razón social del acreedor"
       example: "BBVA"
     DebtBalance:
       type: number
       format: float
-      description: "Balance of the debt"
+      description: "Saldo de la deuda"
       example: 6701.34
 
 # =======================================================================
@@ -464,43 +469,43 @@ TradeMonthlySummary:
 # =======================================================================
 SbsDebtByOperation:
   type: object
-  description: "Module 6: SBS Debt by Operation"
+  description: "Módulo 6: Deuda SBS por Operación"
   properties:
     CreditorName:
       type: string
-      description: "Creditor name"
+      description: "Nombre del acreedor"
       example: "BCP"
     ProcessingDate:
       type: string
       format: date
-      description: "Processing date"
+      description: "Fecha de proceso"
       example: "2022-04-25"
     PublicationDate:
       type: string
       format: date
-      description: "Publication date"
+      description: "Fecha de publicación"
       example: "2022-03-31"
     Rating:
       type: string
-      description: "Rating"
+      description: "Calificación"
       example: "NOR"
     AccountingLevel1:
-      description: "First level of hierarchical account structure"
+      description: "Primer nivel de estructura de cuenta jerárquica"
       type: array
       items:
         $ref: "#/AccountingDetail"
     AccountingLevel2:
-      description: "Second level of hierarchical account structure"
+      description: "Segundo nivel de estructura de cuenta jerárquica"
       type: array
       items:
         $ref: "#/AccountingDetail"
     AccountingLevel3:
-      description: "Third level of hierarchical account structure"
+      description: "Tercer nivel de estructura de cuenta jerárquica"
       type: array
       items:
         $ref: "#/AccountingDetail"
     AccountingLevel4:
-      description: "Fourth level of hierarchical account structure"
+      description: "Cuarto nivel de estructura de cuenta jerárquica"
       type: array
       items:
         $ref: "#/AccountingDetail"
@@ -510,24 +515,24 @@ SbsDebtByOperation:
 # =======================================================================
 AccountingDetail:
   type: object
-  description: "Detail of an accounting account in a hierarchical level"
+  description: "Detalle de una cuenta contable en un nivel jerárquico"
   properties:
     AccountingAccount:
       type: string
-      description: "Accounting account (Operation)"
+      description: "Cuenta contable (Operación)"
       example: "14"
     AccountingAccountDescription:
       type: string
-      description: "Accounting account description"
+      description: "Descripción de la cuenta contable"
       example: "CREDITOS DIRECTOS"
     TotalOperationAmount:
       type: number
       format: float
-      description: "Total operation amount"
+      description: "Monto total de la operación"
       example: 230241461.52
     MaxDaysPastDue:
       type: integer
-      description: "Maximum days past due"
+      description: "Días máximos de vencimiento"
       example: 0
 
 # =======================================================================
@@ -590,37 +595,37 @@ InquiryDetail:
 # =======================================================================
 SabioAssessment:
   type: object
-  description: "Module 8: Sabio Assessment"
+  description: "Módulo 8: Evaluación Sabio"
   properties:
     Result:
       type: string
-      description: "Result of the Sabio assessment"
+      description: "Resultado de la evaluación Sabio"
       example: "REVISAR"
     Reasons:
       type: array
       items:
         type: string
-      description: "Reasons for the result"
+      description: "Motivos del resultado"
       example: ["Presenta Calificación Cpp..."]
     Score:
       type: integer
-      description: "Sabio score"
+      description: "Puntaje Sabio"
       example: 652
     ScoreLevel:
       type: string
-      description: "Score level"
+      description: "Nivel del puntaje"
       example: "Puntaje Medio"
     ScoreDescription:
       type: string
-      description: "Description of the score"
+      description: "Descripción del puntaje"
       example: "Estadísticamente, en este nivel..."
     PaymentCapacity:
       type: string
-      description: "Payment capacity"
+      description: "Capacidad de pago"
       example: "S/ 321 - S/ 471"
     EstimatedInstallment:
       type: string
-      description: "Estimated installment"
+      description: "Cuota estimada"
       example: "S/. 2,322.00"
 
 # =======================================================================
@@ -628,7 +633,7 @@ SabioAssessment:
 # =======================================================================
 OtherProducts:
   type: object
-  description: "Module 9: Other Products"
+  description: "Módulo 9: Otros Productos"
   properties:
     Products:
       type: array
@@ -640,27 +645,27 @@ OtherProducts:
 # =======================================================================
 OtherProductDetail:
   type: object
-  description: "Represents a single contracted product."
+  description: "Representa un único producto contratado."
   properties:
     ProductCode:
       type: string
-      description: "Product code (see appendix)"
+      description: "Código del producto (ver anexo)"
       example: "1"
     ProductName:
       type: string
-      description: "Product name"
+      description: "Nombre del producto"
       example: "Score Predictivo (AML)"
     Value:
       type: string
-      description: "Value of the product result"
+      description: "Valor del resultado del producto"
       example: "730"
     Description1:
       type: string
-      description: "Additional description field 1"
+      description: "Campo de descripción adicional 1"
       example: "Puntaje alto"
     Description2:
       type: string
-      description: "Additional description field 2"
+      description: "Campo de descripción adicional 2"
       example: "Bancarizado"
 
 # =======================================================================
@@ -1202,26 +1207,36 @@ LegalEntityInformation:
 # =======================================================================
 LegalRepresentative:
   type: object
-  description: Representante legal de la empresa
-  required:
-    - RepresentativeId
-    - PersonIdentification
-    - PersonName
-    - RepresentationType
+  description: "Representante legal de la empresa."
   properties:
-    RepresentativeId:
+    Identification:
+      description: "Identificación del representante legal."
+      $ref: "#/Identification"
+    Name:
       type: string
-      description: Identificador único del representante
-      example: "REP-001"
-    PersonIdentification:
-      $ref: "#/PersonIdentification"
-    RepresentationType:
+      description: "Nombre del representante legal."
+      example: "LOPEZ PEREZ JUAN"
+    PositionStartDate:
       type: string
-      enum: ["GENERAL_MANAGER", "LEGAL_REPRESENTATIVE", "POWER_OF_ATTORNEY"]
-      description: Tipo de representación
-      example: "GENERAL_MANAGER"
-    Contact:
-      $ref: "#/Contact"
+      format: date
+      description: "Fecha de inicio del cargo."
+      example: "2018-03-28"
+    Position:
+      type: string
+      description: "Cargo que ocupa."
+      example: "APODERADO"
+    CurrentSemaphore:
+      type: string
+      description: "Semáforo de riesgo actual del representante."
+      example: "12"
+    PreviousSemaphore:
+      type: string
+      description: "Semáforo de riesgo previo del representante."
+      example: "1"
+    BestWorstSemaphoreLast12Months:
+      type: string
+      description: "Mejor/peor semáforo en los últimos 12 meses."
+      example: "2"
 
 # =======================================================================
 # == Shareholder
