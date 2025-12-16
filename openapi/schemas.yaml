@@ -452,48 +452,75 @@ TradeMonthlySummary:
       example: "CHINA"
 
 # =======================================================================
-# == AccountingInfo
-# =======================================================================
-AccountingInfo:
-  type: object
-  properties:
-    AccountingAccount:
-      type: string
-      example: "14"
-    AccountingAccountDescription:
-      type: string
-      example: "CREDITOS DIRECTOS"
-    TotalOperationAmount:
-      type: number
-      format: float
-      example: 230241461.52
-    MaxDaysPastDue:
-      type: integer
-      example: 0
-
-# =======================================================================
 # == SbsDebtByOperation
 # =======================================================================
 SbsDebtByOperation:
   type: object
-  description: "Módulo 6: Deuda SBS por Operación"
+  description: "Module 6: SBS Debt by Operation"
   properties:
     CreditorName:
       type: string
+      description: "Creditor name"
       example: "BCP"
     ProcessingDate:
       type: string
       format: date
+      description: "Processing date"
       example: "2022-04-25"
     PublicationDate:
       type: string
       format: date
+      description: "Publication date"
       example: "2022-03-31"
     Rating:
       type: string
+      description: "Rating"
       example: "NOR"
-    AccountingInfo:
-      $ref: "#/AccountingInfo"
+    AccountingLevel1:
+      description: "First level of hierarchical account structure"
+      type: array
+      items:
+        $ref: "#/AccountingDetail"
+    AccountingLevel2:
+      description: "Second level of hierarchical account structure"
+      type: array
+      items:
+        $ref: "#/AccountingDetail"
+    AccountingLevel3:
+      description: "Third level of hierarchical account structure"
+      type: array
+      items:
+        $ref: "#/AccountingDetail"
+    AccountingLevel4:
+      description: "Fourth level of hierarchical account structure"
+      type: array
+      items:
+        $ref: "#/AccountingDetail"
+
+# =======================================================================
+# == AccountingDetail
+# =======================================================================
+AccountingDetail:
+  type: object
+  description: "Detail of an accounting account in a hierarchical level"
+  properties:
+    AccountingAccount:
+      type: string
+      description: "Accounting account (Operation)"
+      example: "14"
+    AccountingAccountDescription:
+      type: string
+      description: "Accounting account description"
+      example: "CREDITOS DIRECTOS"
+    TotalOperationAmount:
+      type: number
+      format: float
+      description: "Total operation amount"
+      example: 230241461.52
+    MaxDaysPastDue:
+      type: integer
+      description: "Maximum days past due"
+      example: 0
 
 # =======================================================================
 # == InquiryFootprint
@@ -555,30 +582,37 @@ InquiryDetail:
 # =======================================================================
 SabioAssessment:
   type: object
-  description: "Módulo 8: Evaluación Sabio"
+  description: "Module 8: Sabio Assessment"
   properties:
     Result:
       type: string
+      description: "Result of the Sabio assessment"
       example: "REVISAR"
     Reasons:
       type: array
       items:
         type: string
+      description: "Reasons for the result"
       example: ["Presenta Calificación Cpp..."]
     Score:
       type: integer
+      description: "Sabio score"
       example: 652
     ScoreLevel:
       type: string
+      description: "Score level"
       example: "Puntaje Medio"
     ScoreDescription:
       type: string
+      description: "Description of the score"
       example: "Estadísticamente, en este nivel..."
     PaymentCapacity:
       type: string
+      description: "Payment capacity"
       example: "S/ 321 - S/ 471"
     EstimatedInstallment:
       type: string
+      description: "Estimated installment"
       example: "S/. 2,322.00"
 
 # =======================================================================
@@ -586,28 +620,40 @@ SabioAssessment:
 # =======================================================================
 OtherProducts:
   type: object
-  description: "Módulo 9: Otros Productos"
+  description: "Module 9: Other Products"
   properties:
     Products:
       type: array
       items:
-        type: object
-        properties:
-          ProductCode:
-            type: string
-            example: "1"
-          ProductName:
-            type: string
-            example: "Score Predictivo (AML)"
-          Value:
-            type: string
-            example: "730"
-          Description1:
-            type: string
-            example: "Puntaje alto"
-          Description2:
-            type: string
-            example: "Bancarizado"
+        $ref: "#/OtherProductDetail"
+
+# =======================================================================
+# == OtherProductDetail
+# =======================================================================
+OtherProductDetail:
+  type: object
+  description: "Represents a single contracted product."
+  properties:
+    ProductCode:
+      type: string
+      description: "Product code (see appendix)"
+      example: "1"
+    ProductName:
+      type: string
+      description: "Product name"
+      example: "Score Predictivo (AML)"
+    Value:
+      type: string
+      description: "Value of the product result"
+      example: "730"
+    Description1:
+      type: string
+      description: "Additional description field 1"
+      example: "Puntaje alto"
+    Description2:
+      type: string
+      description: "Additional description field 2"
+      example: "Bancarizado"
 
 # =======================================================================
 # == RiskIndicators
