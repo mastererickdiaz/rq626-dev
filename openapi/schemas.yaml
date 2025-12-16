@@ -286,55 +286,99 @@ InformativeDebtEntity:
 # =======================================================================
 GuarantorsAndCoDebtors:
   type: object
-  description: "Módulo 4: Avales y Codeudores"
+  description: "Module 4: Guarantors and Co-Debtors"
   properties:
-    GuaranteedParties:
+    IsGuarantorFor:
+      description: "List of parties the customer is a guarantor for."
       type: array
       items:
-        $ref: "#/GuaranteedParty"
-    CoDebtors:
+        $ref: '#/GuarantorRelationship'
+    IsGuaranteedBy:
+      description: "List of parties that guarantee the customer."
       type: array
       items:
-        $ref: "#/CoDebtor"
+        $ref: '#/GuarantorRelationship'
+    CoDebts:
+      description: "List of co-debts for the customer."
+      type: array
+      items:
+        $ref: '#/CoDebtor'
 
 # =======================================================================
-# == GuaranteedParty
+# == GuarantorRelationship
 # =======================================================================
-GuaranteedParty:
+GuarantorRelationship:
   type: object
+  description: "Represents a guarantor relationship, either as a guarantor or as the guaranteed party."
   properties:
-    GuaranteedIdentification:
+    Identification:
       $ref: "#/Identification"
-    GuaranteeName:
+    BusinessName:
       type: string
+      description: "Business name of the related party."
       example: "LOPEZ PEREZ JUAN LUIS"
     RiskIndicators:
       $ref: "#/RiskIndicators"
-    Creditor:
-      $ref: "#/GuaranteeCreditor"
+    Creditors:
+      type: array
+      items:
+        $ref: "#/GuaranteeCreditor"
 
 # =======================================================================
 # == CoDebtor
 # =======================================================================
 CoDebtor:
   type: object
+  description: "Co-debtor information."
   properties:
-    Party:
-      $ref: "#/Party"
+    Identification:
+      $ref: "#/Identification"
+    BusinessName:
+      type: string
+      description: "Business name"
+      example: "LOPEZ PEREZ JUAN LUIS"
     CreditId:
       type: string
+      description: "Credit identifier"
       example: "A34351566713"
     ProcessingDate:
       type: string
       format: date
+      description: "Processing date"
       example: "2018-12-31"
     CoDebtType:
       type: integer
+      description: "Co-debt type (see appendix)"
       example: 1
     DebtAmount:
       type: number
       format: float
+      description: "Amount of the debt"
       example: 473732.24
+    Creditors:
+      description: "Details of the co-debt creditors."
+      type: array
+      items:
+        $ref: "#/CoDebtCreditor"
+
+# =======================================================================
+# == CoDebtCreditor
+# =======================================================================
+CoDebtCreditor:
+  type: object
+  description: "Creditor of a co-debt."
+  properties:
+    Identification:
+      $ref: "#/Identification"
+    BusinessName:
+      type: string
+      description: "Creditor's business name"
+      example: "BBVA"
+    DebtBalance:
+      type: number
+      format: float
+      description: "Balance of the debt"
+      example: 6701.34
 
 # =======================================================================
 # == ForeignTrade
