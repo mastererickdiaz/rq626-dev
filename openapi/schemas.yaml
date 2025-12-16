@@ -136,44 +136,83 @@ EntitiesItem:
 # =======================================================================
 OverdueDocument:
   type: object
+  description: "Contiene información de documentos vencidos, agrupados por año y mes."
   properties:
     Year:
       type: integer
+      description: "Año del reporte."
       example: 2023
     Month:
       type: integer
+      description: "Mes del reporte."
       example: 2
+    Sources:
+      type: array
+      description: "Lista de fuentes de la deuda vencida."
+      items:
+        $ref: "#/OverdueSource"
+
+# =======================================================================
+# == OverdueSource
+# =======================================================================
+OverdueSource:
+  type: object
+  description: "Representa una fuente de deuda vencida y sus entidades."
+  properties:
     SourceId:
       type: integer
+      description: "ID de la fuente (ver anexo)."
       example: 5
     SourceName:
       type: string
+      description: "Nombre de la fuente."
       example: "Documentos Impagos"
     TotalPastDue:
       type: number
       format: float
+      description: "Deuda vencida total de la fuente."
       example: 221.87
     MaxDaysPastDue:
       type: integer
+      description: "Máximo número de días vencidos."
       example: 1473
+    Entities:
+      type: array
+      description: "Lista de entidades con deudas vencidas para esta fuente."
+      items:
+        $ref: "#/OverdueEntity"
+
+# =======================================================================
+# == OverdueEntity
+# =======================================================================
+OverdueEntity:
+  type: object
+  description: "Representa una entidad con una deuda vencida."
+  properties:
     EntityName:
       type: string
+      description: "Razón social de la entidad."
       example: "AMERICA MOVIL PERU S.A.C."
     DebtAmount:
       type: number
       format: float
+      description: "Monto de la deuda."
       example: 166.87
     DaysPastDue:
       type: integer
+      description: "Días vencidos."
       example: 695
     DocumentsNumber:
       type: integer
+      description: "Número de documentos vencidos."
       example: 4
     EntityType:
       type: string
+      description: "Tipo de Entidad (ver anexo)."
       example: "CTC"
     ControversyFlag:
       type: string
+      description: "Flag si la deuda está en controversia (S/N)."
       example: "N"
 
 # =======================================================================
